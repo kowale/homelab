@@ -2,15 +2,15 @@
 
 Homelab, infra, dotfiles. Configs, tools, hosts, and networks.
 Personal monorepo that configures what can be configured.
-Made possible by the powers granted by Nix and NixOS.
+Made possible by the powers granted by Nix.
 
 ## Hardware
 
-- `tkon` is a 1st gen T14 with an i7
+- `tkon` is a T14 with an i7
 - `twelve` is an old T480 with a touchscreen
 - `pear` is a budget AMD desktop with an RTX 3060
 
-## Inspirations
+## Moodboard
 
 - https://github.com/NixOS/infra
 - https://github.com/wagdav/homelab
@@ -23,3 +23,7 @@ Made possible by the powers granted by Nix and NixOS.
 - https://github.com/headblockhead/dotfiles
 - https://github.com/MostAwesomeDude/treehouse
 - https://cs.tvl.fyi/depot/-/blob/users/tazjin/nixos
+- https://github.com/gvolpe/nix-config
+- https://github.com/RaitoBezarius/nixos-home
+- https://spectrum-os.org/git/infra/tree/
+

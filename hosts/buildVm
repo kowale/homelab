@@ -1,0 +1,1 @@
+nix build .#nixosConfigurations.$1.config.system.build.vm -L -vv
