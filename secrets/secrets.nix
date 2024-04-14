@@ -18,5 +18,5 @@ in
   {
     "hello.age".publicKeys = kon ++ twelve;
     "wireless.age".publicKeys = kon ++ twelve;
-    "homelab.kdbx.age".publicKeys = kon ++ twelve;
+    "homelab.kdbx.tar.age".publicKeys = kon ++ twelve;
   }

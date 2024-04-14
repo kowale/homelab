@@ -88,7 +88,6 @@
     rofi
   ];
 
-
   services.pict-rs.enable = true;
   services.autorandr.enable = true;
 
@@ -98,6 +97,7 @@
   powerManagement.enable = true;
 
   nixpkgs.config.allowUnfree = true;
+  system.nixos.label = "baroque";
   system.configurationRevision = self.rev or self.dirtyRev or "none";
   system.stateVersion = "23.11";
 
