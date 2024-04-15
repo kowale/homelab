@@ -4,7 +4,7 @@
 
   # TODO: move to nixosModules
   imports = [
-    ./hardware.nix
+    ./hardware-configuration.nix
     ../../modules/xmonad.nix
     ../../modules/nix.nix
     ../../modules/ssh.nix
@@ -18,6 +18,8 @@
     ../../modules/keepassxc.nix
     ../../modules/tmux.nix
     ../../modules/avahi.nix
+    ../../modules/zram.nix
+    ../../modules/bluetooth.nix
   ];
 
   boot.loader = {
@@ -88,6 +90,17 @@
     rofi
   ];
 
+  services.tlp = {
+    enable = true;
+    # TODO: find performance/battery balance
+    # settings = {
+    #   STOP_CHARGE_THRESH_BAT0 = 90;
+    #   CPU_SCALING_GOVERNOR_ON_BATTERY = "powersave";
+    #   CPU_BOOST_ON_BAT = 0;
+    #   RUNTIME_PM_ON_BAT = "auto";
+    # };
+  };
+  powerManagement.powertop.enable = true;
   services.pict-rs.enable = true;
   services.autorandr.enable = true;
 

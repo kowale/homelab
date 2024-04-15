@@ -26,4 +26,11 @@ Made possible by the powers granted by Nix.
 - https://github.com/gvolpe/nix-config
 - https://github.com/RaitoBezarius/nixos-home
 - https://spectrum-os.org/git/infra/tree/
+- https://github.com/ngkz/dotfiles
+- https://github.com/hlissner/dotfiles
+- https://github.com/Lassulus/superconfig
+- https://github.com/nix-community/infra
+- https://github.com/NixOS/nixos-wiki-infra
+- https://github.com/zimbatm/home
+- https://github.com/nix-community/srvos
 
