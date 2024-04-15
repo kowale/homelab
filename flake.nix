@@ -3,11 +3,15 @@
 
     inputs = {
         nixpkgs.url = "github:nixos/nixpkgs/nixos-23.11";
-        agenix = {
-            url = "github:ryantm/agenix";
-            inputs.nixpkgs.follows = "nixpkgs";
-        };
         hardware.url = "github:nixos/nixos-hardware";
+        agenix = {
+          url = "github:ryantm/agenix";
+          inputs.nixpkgs.follows = "nixpkgs";
+        };
+        # lanzaboote = {
+        #   url = "github:nix-community/lanzaboote/v0.3.0";
+        #   inputs.nixpkgs.follows = "nixpkgs";
+        # };
     };
 
     outputs = { self, nixpkgs, ... } @ inputs:

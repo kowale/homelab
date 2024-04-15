@@ -60,7 +60,7 @@
         "browser.search.suggest.enabled" = false;
         "browser.startup.page" = 3; #
         "browser.tabs.firefox-view.mobilePromo.dismissed" = true;
-        "browser.toolbars.bookmarks.visibility" = "always";
+        "browser.toolbars.bookmarks.visibility" = "never";
         "browser.urlbar.quicksuggest.scenario" = "history";
         "browser.urlbar.suggest.engines" = false;
         "browser.urlbar.suggest.searches" = false;
