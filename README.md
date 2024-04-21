@@ -6,7 +6,7 @@ Made possible by the powers granted by Nix.
 
 ## Hardware
 
-- `tkon` is a T14 with an i7
+- `five` is a T14 with an i7
 - `twelve` is an old T480 with a touchscreen
 - `pear` is a budget AMD desktop with an RTX 3060
 

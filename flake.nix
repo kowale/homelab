@@ -31,16 +31,26 @@
         };
 
         nixosConfigurations = {
-            twelve = nixpkgs.lib.nixosSystem {
-                system = "x86_64-linux";
-                modules = with inputs; [
-                    hardware.nixosModules.lenovo-thinkpad-t480
-                    agenix.nixosModules.default
-                    ./hosts/twelve
-                ];
-                specialArgs = self;
-            };
-        };
 
+            twelve = nixpkgs.lib.nixosSystem {
+              system = "x86_64-linux";
+              modules = with inputs; [
+                  hardware.nixosModules.lenovo-thinkpad-t480
+                  agenix.nixosModules.default
+                  ./hosts/twelve
+              ];
+              specialArgs = self;
+            };
+
+            five = nixpkgs.lib.nixosSystem {
+              system = "x86_64-linux";
+              modules = with inputs; [
+                  hardware.nixosModules.lenovo-thinkpad-t14
+                  agenix.nixosModules.default
+                  ./hosts/five
+              ];
+              specialArgs = self;
+          };
+      };
     };
 }

@@ -16,7 +16,7 @@
       gd = "git diff";
       ff = "firefox";
       cd = "z";
-      sw = "sudo nixos-rebuild switch --flake .# -vv";
+      sw = "sudo nixos-rebuild switch --flake .#$(hostname) -vv";
     };
 
   environment.systemPackages = with pkgs; [
