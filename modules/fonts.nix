@@ -1,7 +1,13 @@
 { config, pkgs, ... }:
 
 {
-    console.keyMap = "us";
+    console = {
+      keyMap = "us";
+      earlySetup = true;
+      packages = [ pkgs.terminus_font ];
+      font = "ter-u12n";
+    };
+
     i18n.defaultLocale = "en_US.UTF-8";
 
     fonts.enableDefaultPackages = true;

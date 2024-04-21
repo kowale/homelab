@@ -10,11 +10,11 @@
 
   networking.wireless = {
     enable = true;
+    userControlled.enable = true;
     scanOnLowSignal = false;
-    #environmentFile = config.age.secrets.wireless.path;
+    environmentFile = config.age.secrets.wireless.path;
     networks = {
-      #"SKYBEADJ".psk = "@SKYBEADJ@";
-      "SKYBEADJ".psk = "changeme";
+      "SKYBEADJ".psk = "@SKYBEADJ@";
     };
   };
 }

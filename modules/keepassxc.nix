@@ -6,16 +6,25 @@
 
 let
 
-  hello = pkgs.writeShellScriptBin "" ''
-    echo hi
+  openSesame = pkgs.writeShellScriptBin "hello" ''
+    dir=$(mktemp)
+    cd $dir
+    tar xf ${config.age.secrets."homelab.kdbx.tar".path}
+    keepassxc homelab.kdbx
   '';
 
 in {
 
   environment.systemPackages = with pkgs; [
     keepassxc
+    openSesame
   ];
 
-  age.secrets."homelab.kdbx.tar".file = ../secrets/homelab.kdbx.tar.age;
+
+  age.secrets."homelab.kdbx.tar" = {
+    file = ../secrets/homelab.kdbx.tar.age;
+    owner = "kon";
+    group = "wheel";
+  };
 
 }

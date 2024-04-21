@@ -29,6 +29,8 @@
     exec xmonad
     '';
 
+  programs.slock.enable = true;
+
   environment.variables = {
     TERMINAL = "alacritty";
   };
@@ -77,7 +79,7 @@
 
         alacrittyConfig = pkgs.writeText "alacritty.yml" ''
         font:
-          size: 10.0
+          size: 8.0
 
         window:
           decorations: "None"
@@ -123,20 +125,21 @@
           `additionalKeysP`
           [ ("M-f", spawn "firefox")
           , ("M-p", spawn "rofi -show run")
+          , ("S-M-l", spawn "physlock")
           , ("S-M-<Backspace>", kill)
           , ("M-n", spawn "notify-send hi")
           , ("<Print>", unGrab *> spawn "scrot -s")
-          , ("<XF86MonBrightnessUp>", spawn "light -A 20")
-          , ("<XF86MonBrightnessDown>", spawn "light -U 20")
-          , ("<XF86AudioRaiseVolume>", spawn "pw-volume change +10%")
-          , ("<XF86AudioLowerVolume>", spawn "pw-volume change -10%")
+          , ("<XF86MonBrightnessUp>", spawn "light -A 10")
+          , ("<XF86MonBrightnessDown>", spawn "light -U 10")
+          , ("<XF86AudioRaiseVolume>", spawn "pw-volume change +1%")
+          , ("<XF86AudioLowerVolume>", spawn "pw-volume change -1%")
           , ("<XF86AudioMute>", spawn "pw-volume mute toggle")
           , ("<XF86Favorites>", spawn "notify-send '*'")
           ]
 
         -- xprop | grep WM_CLASS to find className
         hook = composeAll
-          [ className =? "KeePassXC" --> doFloat
+          [ className =? ".arandr-wrapped" --> doFloat
           , isDialog                 --> doFloat
           ]
 

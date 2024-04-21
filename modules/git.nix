@@ -4,10 +4,13 @@
 
 let
 
+    keys = import ../secrets/keys.nix;
+
     base = {
       init.defaultBranch = "main";
       log.date = "iso";
       pull.rebase = true;
+      push.autoSetupRemote = true;
       rebase.autosquash = true;
       rebase.autostash = true;
       rerere.enabled = true;
@@ -18,7 +21,6 @@ let
       core.fsmonitor = true;
       advice.addEmptyPathspec = false;
       core.pager = "cat";
-      # remote.origin.fetch = "+refs/pull/*:refs/remotes/origin/pull/*";
     };
 
     alias.alias = {
@@ -36,8 +38,8 @@ let
     user = {
       user.name = "Konstanty Kowalewski";
       user.email = "konstanty@kszk.eu";
-      # user.signingKey = "";
       # gpg.format = "ssh";
+      # user.signingKey = keys.kon;
     };
 
 in {

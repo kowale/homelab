@@ -20,6 +20,7 @@
     ../../modules/avahi.nix
     ../../modules/zram.nix
     ../../modules/bluetooth.nix
+    ../../modules/hardening.nix
   ];
 
   boot.loader = {
@@ -29,6 +30,25 @@
 
   time.timeZone = "Europe/London";
   networking.hostName = "twelve";
+  services.getty.autologinUser = "kon";
+
+  services.physlock = {
+    enable = true;
+    muteKernelMessages = true;
+    allowAnyUser = true;
+  };
+
+  services.xserver.xautolock = {
+    enable = true;
+    time = 1; # minutes
+    extraOptions = [
+      "-detectsleep"
+    ];
+    locker = "/run/wrappers/bin/physlock";
+    enableNotifier = true;
+    notify = 55; # seconds
+    notifier = ''${pkgs.libnotify}/bin/notify-send "10s to lock"'';
+  };
 
   users.motd = ''
          ______________
@@ -80,6 +100,7 @@
     lm_sensors
     lsof
     wavemon
+    chromium
     smartmontools
     qrcp
     ranger
@@ -88,7 +109,13 @@
     binutils
     acpi
     rofi
+    xclip
+    xsel
+
   ];
+
+  # services.tailscale.enable = true;
+  # services.dnsmasq.enable = true;
 
   services.tlp = {
     enable = true;
@@ -100,10 +127,10 @@
     #   RUNTIME_PM_ON_BAT = "auto";
     # };
   };
+  services.thermald.enable = true;
   powerManagement.powertop.enable = true;
-  services.pict-rs.enable = true;
   services.autorandr.enable = true;
-
+  services.upower.enable = true;
   services.devmon.enable = true;
   programs.light.enable = true;
   services.picom.enable = true;
