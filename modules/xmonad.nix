@@ -13,7 +13,6 @@
     xbindkeys
     xmobar
     alacritty
-    slock
     scrot
     feh
     dunst
@@ -24,24 +23,66 @@
     rofi
   ];
 
+  # Run `xset q` to see current state
   environment.etc."X11/xinit/xinitrc".text = ''
     xset -b
+    xset s 120
     exec xmonad
-    '';
+  '';
 
-  programs.slock.enable = true;
+  environment.etc."alacritty.yaml".text = ''
+    font:
+      size: 8.0
 
-  environment.variables = {
-    TERMINAL = "alacritty";
+    window:
+      decorations: "None"
+      resize_increments: true
+
+    colors:
+      primary:
+        background: "0x000000"
+        foreground: "0xffffff"
+
+    key_bindings:
+        - { key: "T", mods: "Control|Shift", action: "SpawnNewInstance"}
+        - { key: "Plus", mods: "Control|Shift", action: "IncreaseFontSize"}
+        - { key: "Plus", mods: "Control|Shift", action: "IncreaseFontSize"}
+        - { key: "Plus", mods: "Control|Shift", action: "IncreaseFontSize"}
+        - { key: "Plus", mods: "Control|Shift", action: "IncreaseFontSize"}
+        - { key: "Minus", mods: "Control", action: "DecreaseFontSize"}
+        - { key: "Minus", mods: "Control", action: "DecreaseFontSize"}
+        - { key: "Minus", mods: "Control", action: "DecreaseFontSize"}
+        - { key: "Minus", mods: "Control", action: "DecreaseFontSize"}
+  '';
+
+  services.physlock = {
+    enable = true;
+    muteKernelMessages = true;
+    allowAnyUser = true;
   };
 
-  # 1 2 [3] 4 : Tall : [xmonad.nix] [XMonad.Hoo]
-  # CAPS 0K/0K 409G 10% wlp3s0 0/0 1212 36% 2024-04-15 Mon 00:26:43
+  environment.variables = {
+    TERMINAL = "alacritty --config-file /etc/alacritty.yaml";
+  };
 
   services.xserver = {
     enable = true;
     layout = "us";
     libinput.enable = true;
+
+    # TODO: graphical-session.target is broken with startx displayManager
+    xautolock = {
+      enable = true;
+      time = 1; # minutes
+      locker = "/run/wrappers/bin/physlock";
+      killtime = 10; # mins
+      killer = "${pkgs.systemd}/bin/systemctl suspend";
+      # extraOptions = [ "-secure" "-detectsleep" ];
+
+      enableNotifier = true;
+      notify = 55; # seconds
+      notifier = ''${pkgs.libnotify}/bin/notify-send "55s to lock"'';
+    };
 
     displayManager = {
       startx.enable = true;
@@ -71,39 +112,14 @@
         , Run Memory ["-t", "<usedratio>%", "-L", "20", "-H", "90", "-h", "red", "-n", "orange"] 10
         , Run DynNetwork ["-t", "<dev> <rx><fc=gray>/</fc><tx>", "-L", "500", "-H", "5000", "-l", "gray", "-h", "yellow", "-n", "orange"] 10
         , Run Com "light" [ "-r" ] "brightness" 50
-        -- , Run CommandReader "${getVolume}" "volume" 10
         , Run Battery ["-t", "<left>%", "-L", "20", "-H", "80", "-l", "red", "-h", "green", "-n", "pink"] 10
         , Run Date "%F %a %T" "date" 10
         ] }
         '';
 
-        alacrittyConfig = pkgs.writeText "alacritty.yml" ''
-        font:
-          size: 8.0
-
-        window:
-          decorations: "None"
-          resize_increments: true
-
-        colors:
-          primary:
-            background: "0x000000"
-            foreground: "0xffffff"
-
-        key_bindings:
-            - { key: "T", mods: "Control|Shift", action: "SpawnNewInstance"}
-            - { key: "Plus", mods: "Control|Shift", action: "IncreaseFontSize"}
-            - { key: "Plus", mods: "Control|Shift", action: "IncreaseFontSize"}
-            - { key: "Plus", mods: "Control|Shift", action: "IncreaseFontSize"}
-            - { key: "Plus", mods: "Control|Shift", action: "IncreaseFontSize"}
-            - { key: "Minus", mods: "Control", action: "DecreaseFontSize"}
-            - { key: "Minus", mods: "Control", action: "DecreaseFontSize"}
-            - { key: "Minus", mods: "Control", action: "DecreaseFontSize"}
-            - { key: "Minus", mods: "Control", action: "DecreaseFontSize"}
-        '';
-
       in
 
+        # 1 2 [3] 4 : Tall : [xmonad.nix] [XMonad.Hoo] ... CAPS 0K/0K 409G 10% wlp3s0 0/0 1212 36% 2024-04-15 Mon 00:26:43
         ''
         import XMonad
         import XMonad.Config.Desktop
@@ -117,7 +133,7 @@
         import XMonad.Hooks.ManageHelpers
 
         configuration = def
-          { terminal = "alacritty --config-file ${alacrittyConfig}"
+          { terminal = "alacritty --config-file /etc/alacritty.yaml"
           , modMask = mod4Mask
           , borderWidth = 0
           , manageHook = hook

@@ -32,24 +32,6 @@
   networking.hostName = "twelve";
   services.getty.autologinUser = "kon";
 
-  services.physlock = {
-    enable = true;
-    muteKernelMessages = true;
-    allowAnyUser = true;
-  };
-
-  services.xserver.xautolock = {
-    enable = true;
-    time = 1; # minutes
-    extraOptions = [
-      "-detectsleep"
-    ];
-    locker = "/run/wrappers/bin/physlock";
-    enableNotifier = true;
-    notify = 55; # seconds
-    notifier = ''${pkgs.libnotify}/bin/notify-send "10s to lock"'';
-  };
-
   users.motd = ''
          ______________
         ||            ||
