@@ -45,11 +45,6 @@
            \      ____    \
             \_____\___\____\
 
-    "I would define the baroque as that style that
-    deliberately exhausts (or tries to exhaust) its
-    own possibilities, and that borders on self-caricature."
-
-    Jorge Luis Borges "A Universal History of Infamy" (1935)
   '';
 
   age.secrets.hello.file = ../../secrets/hello.age;

@@ -33,7 +33,6 @@
   services.getty.autologinUser = "kon";
 
   users.motd = ''
-
          +--------------+
          |.------------.|
          ||            ||
