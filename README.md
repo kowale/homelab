@@ -1,14 +1,15 @@
 # Homelab
 
-Homelab, infra, dotfiles. Configs, tools, hosts, and networks.
-Personal monorepo that configures what can be configured.
-Made possible by the powers granted by Nix.
+Dotfiles, hosts, tools, disks, networks, secrets.
+Personal monorepo to configure what can be configured.
+Truly congruent, reproducible infrastructure-as-code.
+Powers granted by Nix and NixOS.
 
 ## Hardware
 
-- `five` is a T14 with an i7
-- `twelve` is an old T480 with a touchscreen
-- `pear` is a budget AMD desktop with an RTX 3060
+- `five` is an old, first gen T14 with an i7
+- `twelve` is an ancient T480 with an i5 and a touchscreen
+- `pear` is a budget AMD desktop with an RTX 3060 (coming soon)
 
 ## Moodboard
 
@@ -33,4 +34,6 @@ Made possible by the powers granted by Nix.
 - https://github.com/NixOS/nixos-wiki-infra
 - https://github.com/zimbatm/home
 - https://github.com/nix-community/srvos
+- https://github.com/jonascarpay/nix-community
+- https://github.com/rnl-dei/nixrnl
 

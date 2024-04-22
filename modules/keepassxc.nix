@@ -6,7 +6,7 @@
 
 let
 
-  openSesame = pkgs.writeShellScriptBin "hello" ''
+  openSesame = pkgs.writeShellScriptBin "openSesame" ''
     dir=$(mktemp)
     cd $dir
     tar xf ${config.age.secrets."homelab.kdbx.tar".path}

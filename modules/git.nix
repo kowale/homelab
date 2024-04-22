@@ -26,7 +26,7 @@ let
     alias.alias = {
       cb = "symbolic-ref --short HEAD";
       bl = "blame -w -C -C -C";
-      pu = "push --signed --force-if-includes --force-with-lease";
+      pu = "push --force-if-includes --force-with-lease"; # --signed
       co = "commit -S -a -m";
       st = "status --short";
       di = "diff --staged";

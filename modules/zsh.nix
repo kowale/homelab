@@ -40,7 +40,27 @@
       "RM_STAR_WAIT"
     ];
     shellInit = ''
-      TIMER_FORMAT='%d'
+
+    TIMER_FORMAT='%d'
+
+    n() {
+        dir="/home/kon/notes/$(date -d today '+%Y/%m')"
+        file="/home/kon/notes/$(date -d today '+%Y/%m/%d.md')"
+        mkdir -p $dir
+        [ -f $file ] || { echo "# $(date -d today '+%Y-%m-%d')\n\n" > $file }
+        nvim -c "normal G" -- $file
+    }
+
+    f() {
+        file=$(
+            fzf -m \
+            --bind ctrl-a:select-all,ctrl-d:deselect-all,ctrl-t:toggle-all \
+            --print0 \
+            --preview 'bat --theme Dracula --color=always {}'
+        ) || return
+        nvim -- $file
+    }
+
     '';
     ohMyZsh = {
         enable = true;
