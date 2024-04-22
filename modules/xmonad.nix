@@ -55,14 +55,14 @@
         - { key: "Minus", mods: "Control", action: "DecreaseFontSize"}
   '';
 
+  environment.variables = {
+    TERMINAL = "alacritty --config-file /etc/alacritty.yaml";
+  };
+
   services.physlock = {
     enable = true;
     muteKernelMessages = true;
     allowAnyUser = true;
-  };
-
-  environment.variables = {
-    TERMINAL = "alacritty --config-file /etc/alacritty.yaml";
   };
 
   services.xserver = {
@@ -70,18 +70,16 @@
     layout = "us";
     libinput.enable = true;
 
-    # TODO: graphical-session.target is broken with startx displayManager
     xautolock = {
       enable = true;
       time = 1; # minutes
       locker = "/run/wrappers/bin/physlock";
       killtime = 10; # mins
       killer = "${pkgs.systemd}/bin/systemctl suspend";
-      # extraOptions = [ "-secure" "-detectsleep" ];
-
+      extraOptions = [ "-secure" "-detectsleep" ];
       enableNotifier = true;
-      notify = 55; # seconds
-      notifier = ''${pkgs.libnotify}/bin/notify-send "55s to lock"'';
+      notify = 10; # seconds
+      notifier = ''${pkgs.libnotify}/bin/notify-send "10s to lock"'';
     };
 
     displayManager = {

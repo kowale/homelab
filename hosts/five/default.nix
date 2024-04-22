@@ -21,6 +21,8 @@
     ../../modules/zram.nix
     ../../modules/bluetooth.nix
     ../../modules/hardening.nix
+    ../../modules/picom.nix
+    ../../modules/laptop.nix
   ];
 
   boot.loader = {
@@ -31,6 +33,7 @@
   time.timeZone = "Europe/London";
   networking.hostName = "five";
   services.getty.autologinUser = "kon";
+  services.tailscale.enable = true;
 
   users.motd = ''
          +--------------+
@@ -93,24 +96,10 @@
 
   ];
 
-  services.tlp = {
-    enable = true;
-    # TODO: find performance/battery balance
-    # settings = {
-    #   STOP_CHARGE_THRESH_BAT0 = 90;
-    #   CPU_SCALING_GOVERNOR_ON_BATTERY = "powersave";
-    #   CPU_BOOST_ON_BAT = 0;
-    #   RUNTIME_PM_ON_BAT = "auto";
-    # };
-  };
-  services.thermald.enable = true;
-  powerManagement.powertop.enable = true;
   services.autorandr.enable = true;
-  services.upower.enable = true;
   services.devmon.enable = true;
   programs.light.enable = true;
-  services.picom.enable = true;
-  powerManagement.enable = true;
+
   nixpkgs.config.allowUnfree = true;
   system.configurationRevision = self.rev or self.dirtyRev or "none";
   system.stateVersion = "23.11";

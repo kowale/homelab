@@ -198,7 +198,9 @@
       # about:addons
       # about:debugging#/runtime/this-firefox
       ExtensionSettings = {
+
         "*".installation_mode = "blocked";
+
         "uBlock0@raymondhill.net" = {
           install_url = "https://addons.mozilla.org/firefox/downloads/latest/ublock-origin/latest.xpi";
           installation_mode = "force_installed";
@@ -215,6 +217,16 @@
 
         "firefox-compact-dark@mozilla.org" = {
           install_url = "https://addons.mozilla.org/firefox/downloads/latest/dark/latest.xpi";
+          installation_mode = "force_installed";
+        };
+
+        "{d634138d-c276-4fc8-924b-40a0ea21d284}" = {
+          install_url = "https://addons.mozilla.org/firefox/downloads/latest/1password-x-password-manager/latest.xpi";
+          installation_mode = "force_installed";
+        };
+
+        "jid1-MnnxcxisBPnSXQ@jetpack" = {
+          install_url = "https://addons.mozilla.org/firefox/downloads/latest/privacy-badger17/latest.xpi";
           installation_mode = "force_installed";
         };
 
