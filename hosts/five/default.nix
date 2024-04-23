@@ -93,7 +93,7 @@
     rofi
     xclip
     xsel
-
+    python3
   ];
 
   services.autorandr.enable = true;

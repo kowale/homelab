@@ -33,7 +33,7 @@
   time.timeZone = "Europe/London";
   networking.hostName = "twelve";
   services.getty.autologinUser = "kon";
-  services.tailscale.enable = true;
+  # services.tailscale.enable = true;
 
   users.motd = ''
          ______________
@@ -91,7 +91,7 @@
     rofi
     xclip
     xsel
-
+    python3
   ];
 
   services.autorandr.enable = true;
