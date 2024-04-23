@@ -7,7 +7,7 @@ Powers granted by Nix and NixOS.
 
 ## Hardware
 
-- `five` is an old, first gen T14 with an i7
+- `five` is an old T14 (1st gen) with an i7
 - `twelve` is an ancient T480 with an i5 and a touchscreen
 - `pear` is a budget AMD desktop with an RTX 3060 (coming soon)
 
@@ -34,6 +34,6 @@ Powers granted by Nix and NixOS.
 - https://github.com/NixOS/nixos-wiki-infra
 - https://github.com/zimbatm/home
 - https://github.com/nix-community/srvos
-- https://github.com/jonascarpay/nix-community
+- https://github.com/jonascarpay/nix
 - https://github.com/rnl-dei/nixrnl
 
