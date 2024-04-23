@@ -65,10 +65,21 @@
     allowAnyUser = true;
   };
 
+  # To eliminate screen tearing on Intel laptops
+  # Said to reduce performance, but I did not notice
+  services.xserver.videoDrivers = [ "intel" ];
+  services.xserver.deviceSection = ''
+    Option "DRI" "2"
+    Option "TearFree" "true"
+  '';
+
   services.xserver = {
     enable = true;
     layout = "us";
-    libinput.enable = true;
+    libinput = {
+      enable = true;
+      touchpad.tapping = false;
+    };
 
     xautolock = {
       enable = true;
