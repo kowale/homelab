@@ -33,7 +33,7 @@
   time.timeZone = "Europe/London";
   networking.hostName = "five";
   services.getty.autologinUser = "kon";
-  services.tailscale.enable = true;
+  # services.tailscale.enable = true;
 
   users.motd = ''
          +--------------+

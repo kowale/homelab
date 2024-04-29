@@ -59,7 +59,8 @@ vim.opt.numberwidth = 1
 vim.cmd [[ hi StatusLine guibg=grey guifg=black ]]
 
 -- Completion settings
-vim.opt.completeopt = {'menu', 'menuone', 'noselect'}
+-- https://neovim.io/doc/user/options.html#'completeopt'
+vim.opt.completeopt = {'menu', 'menuone', 'noinsert', 'noselect'}
 
 -- Highlight trailing whitespace
 vim.cmd [[ match Todo /\s\+$/ ]]
