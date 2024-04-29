@@ -21,6 +21,9 @@
   powerManagement = {
     powertop.enable = true;
     enable = true;
+    resumeCommands = ''
+      echo "Resumed"
+    '';
   };
 
   services.thermald.enable = true;
