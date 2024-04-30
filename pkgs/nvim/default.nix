@@ -29,6 +29,9 @@ let
                     gitsigns-nvim
                     toggleterm-nvim
                     telescope-nvim
+                    nvim-treesitter-context
+                    nvim-treesitter-refactor
+                    nvim-treesitter-textobjects
 
                     nvim-cmp
                     cmp-path

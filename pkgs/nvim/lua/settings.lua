@@ -81,3 +81,10 @@ vim.opt.statusline = [[%< %f%m%r %= %l/%L,%c %n]]
 -- Keep 8 rows around cursor
 vim.opt.scrolloff = 8
 
+-- Remove providers
+vim.g.loaded_python3_provider = 0
+vim.g.loaded_ruby_provider = 0
+
+-- Change color of matched parens
+vim.cmd [[ hi MatchParen gui=bold guibg=darkblue guifg=lightblue ]]
+

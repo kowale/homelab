@@ -44,8 +44,19 @@
     TIMER_FORMAT='%d'
 
     n() {
-        dir="/home/kon/notes/$(date -d today '+%Y/%m')"
-        file="/home/kon/notes/$(date -d today '+%Y/%m/%d.md')"
+        root="/home/kon/notes"
+        dir="$root/$(date -d today '+%Y/%m')"
+        file="$root/$(date -d today '+%Y/%m/%d.md')"
+        mkdir -p $dir
+        [ -f $file ] || { echo "# $(date -d today '+%Y-%m-%d')\n\n" > $file }
+        nvim -c "normal G" -- $file
+    }
+
+
+    recall() {
+        root="/home/kon/other/recall"
+        dir="$root/$(date -d today '+%Y/%m')"
+        file="$root/$(date -d today '+%Y/%m/%d.md')"
         mkdir -p $dir
         [ -f $file ] || { echo "# $(date -d today '+%Y-%m-%d')\n\n" > $file }
         nvim -c "normal G" -- $file
