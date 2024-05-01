@@ -1,4 +1,4 @@
-{ config, ... }:
+{ config, pkgs, ... }:
 
 {
 
@@ -7,6 +7,8 @@
     owner = "kon";
     group = "wheel";
   };
+
+  environment.systemPackages = [ pkgs.wpa_supplicant_gui ];
 
   networking.wireless = {
     enable = true;

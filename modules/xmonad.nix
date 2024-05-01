@@ -14,6 +14,7 @@
     xmobar
     alacritty
     scrot
+    flameshot
     feh
     dunst
     libnotify

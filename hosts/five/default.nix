@@ -23,6 +23,7 @@
     ../../modules/hardening.nix
     ../../modules/picom.nix
     ../../modules/laptop.nix
+    ../../modules/tailscale.nix
   ];
 
   boot.loader = {
@@ -33,7 +34,6 @@
   time.timeZone = "Europe/London";
   networking.hostName = "five";
   services.getty.autologinUser = "kon";
-  # services.tailscale.enable = true;
 
   users.motd = ''
          +--------------+

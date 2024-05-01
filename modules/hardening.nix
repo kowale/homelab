@@ -54,6 +54,7 @@
     enable = true;
     maxretry = 10;
     bantime = "30m";
+    ignoreIP = [ "127.0.0.1/16" "192.168.1.0/24" ];
   };
 
   # vulnix --system -vv
