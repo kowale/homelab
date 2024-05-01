@@ -196,11 +196,11 @@ require("trouble").setup {
 vim.keymap.set("n", "<s-t>", "<cmd>TroubleToggle<cr>")
 
 -- Leap
-require("leap").add_default_mappings()
+-- require("leap").add_default_mappings()
 require("leap").setup {
     safe_labels = {}
 }
-vim.keymap.set("n", "<c-_>", function ()
+vim.keymap.set("n", "s", function ()
   local current_window = vim.fn.win_getid()
   require('leap').leap { target_windows = { current_window } }
 end)
