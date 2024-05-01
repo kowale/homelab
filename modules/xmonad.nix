@@ -23,10 +23,30 @@
     rofi
   ];
 
+  # Hide cursor after 1s
+  services.unclutter = {
+    enable = true;
+    timeout = 1;
+  };
+
   # Run `xset q` to see current state
   environment.etc."X11/xinit/xinitrc".text = ''
-    xset -b
-    xset s 120
+    xset -b # disable bell
+    xset s 120 # screensaver after 120s
+
+    # start user's dbus daemon
+    if test -z "$DBUS_SESSION_BUS_ADDRESS"; then
+      eval $(dbus-launch --exit-with-session --sh-syntax)
+    fi
+    systemctl --user import-environment DISPLAY XAUTHORITY
+    if command -v dbus-update-activation-environment >/dev/null 2>&1; then
+      dbus-update-activation-environment DISPLAY XAUTHORITY
+    fi
+
+    # start user's graphical-session target
+    systemctl --user start graphical-session.target
+
+    # launch xmonad
     exec xmonad
   '';
 
@@ -71,14 +91,25 @@
   services.xserver.deviceSection = ''
     Option "DRI" "2"
     Option "TearFree" "true"
-  '';
+    '';
+
+  services.dbus = {
+    enable = true;
+    packages = [ pkgs.dconf ];
+  };
+
+  programs.dconf.enable = true;
 
   services.xserver = {
     enable = true;
     layout = "us";
+
     libinput = {
       enable = true;
-      touchpad.tapping = false;
+      touchpad = {
+        tapping = false;
+        disableWhileTyping = true;
+      };
     };
 
     xautolock = {
@@ -96,14 +127,16 @@
     displayManager = {
       startx.enable = true;
       defaultSession = "none+xmonad";
+      autoLogin = {
+        enable = true;
+        user = "kon";
+      };
     };
 
     windowManager.xmonad = {
       enable = true;
       enableContribAndExtras = true;
       config = let
-
-        getVolume = pkgs.writeScriptBin "getVolume" "pw-volume status | jq .percentage";
 
         xmobarConfig = pkgs.writeScript "xmobarrc"
         ''
@@ -130,6 +163,7 @@
 
         # 1 2 [3] 4 : Tall : [xmonad.nix] [XMonad.Hoo] ... CAPS 0K/0K 409G 10% wlp3s0 0/0 1212 36% 2024-04-15 Mon 00:26:43
         ''
+        import Data.Tree
         import XMonad
         import XMonad.Config.Desktop
         import XMonad.Util.EZConfig
@@ -140,12 +174,22 @@
         import XMonad.Hooks.StatusBar.PP
         import XMonad.Util.Loggers
         import XMonad.Hooks.ManageHelpers
+        import XMonad.Hooks.ScreenCorners
+        import XMonad.Hooks.WindowSwallowing
+        import XMonad.Actions.WindowMenu
+        import XMonad.Actions.GridSelect
+        import XMonad.Actions.TreeSelect
+        import XMonad.Hooks.WorkspaceHistory
+        import qualified XMonad.StackSet as W
+        import XMonad.Util.SpawnOnce
 
         configuration = def
           { terminal = "alacritty --config-file /etc/alacritty.yaml"
           , modMask = mod4Mask
           , borderWidth = 0
-          , manageHook = hook
+          , manageHook = manageHook'
+          , startupHook = startupHook'
+          , handleEventHook = swallowHook'
           }
           `additionalKeysP`
           [ ("M-f", spawn "firefox")
@@ -153,6 +197,8 @@
           , ("S-M-l", spawn "physlock")
           , ("S-M-<Backspace>", kill)
           , ("M-n", spawn "notify-send hi")
+          , ("M-m", windowMenu)
+          , ("M-g", goToSelected def)
           , ("<Print>", unGrab *> spawn "scrot -s")
           , ("<XF86MonBrightnessUp>", spawn "light -A 10")
           , ("<XF86MonBrightnessDown>", spawn "light -U 10")
@@ -162,10 +208,22 @@
           , ("<XF86Favorites>", spawn "notify-send '*'")
           ]
 
+        -- TODO: manage via systemd?
+        startupHook' = do
+          -- spawnOnce "picom"
+          -- spawnOnce "dunst"
+          spawnOnce "notify-send 'spawned.'"
+
         -- xprop | grep WM_CLASS to find className
-        hook = composeAll
+        -- manageHook' = composeOne [ className =? ".arandr-wrapped" -?> doFloat
+        --                         , isDialog                       -?> doCenterFloat
+        --                       ] <+> swallowEventHook $ (className =? "Alacritty") (return True)
+
+        swallowHook' = swallowEventHook (className =? "Alacritty") (return True)
+
+        manageHook' = composeAll
           [ className =? ".arandr-wrapped" --> doFloat
-          , isDialog                 --> doFloat
+          , isDialog                       --> doFloat
           ]
 
         -- Define some colors for xmobar
@@ -188,15 +246,10 @@
             ppOrder = \[ws, layout, _, wins] -> [ws, layout, wins]
           , ppCurrent = yellow . wrap "[" "]"
           , ppUrgent = red . wrap (yellow "!") (yellow "!")
-          , ppExtras = [
-            windowTitles
-            --, padL loadAvg
-            --, logCmd "echo hiii"
-          ]
+          , ppExtras = [ windowTitles ]
           }
 
-        -- C-b to toggle xmobar ("struts")
-        -- Why not elsewhere?
+        -- C-b to toggle xmobar ("struts"), but why here?
         strutsKey XConfig { modMask = m } = (m, xK_b)
 
         main = xmonad
