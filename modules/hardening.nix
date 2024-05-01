@@ -20,12 +20,41 @@
     sudo.execWheelOnly = true;
   };
 
-  services.clamav = {
-    daemon.enable = true;
-    updater.enable = true;
+  # TODO: `opensnitch-ui` to start a session
+  services.opensnitch.enable = true;
+
+  environment.etc."/clamav/onVirus" = {
+    text = ''
+      ALERT="$CLAM_VIRUSEVENT_VIRUSNAME in $CLAM_VIRUSEVENT_FILENAME"
+      notify-send -u critical "$ALERT"
+    '';
+    mode = "0777";
   };
 
-  services.fail2ban.enable = true;
-  services.opensnitch.enable = true;
+  # `sudo freshclam` to update virus database
+  # `curl https://secure.eicar.org/eicar.com.txt | clamscan` to test
+  services.clamav = {
+    updater.enable = true;
+    daemon = {
+      enable = true;
+      settings = {
+        OnAccessMountPath = "/home/kon/other/downloads";
+        OnAccessPrevention = false;
+        OnAccessExtraScanning = true;
+        OnAccessExcludeUname =  "clamav";
+        VirusEvent = "/etc/clamav/onVirus";
+        User = "clamav";
+      };
+    };
+  };
+
+  services.fail2ban = {
+    enable = true;
+    maxretry = 10;
+    bantime = "30m";
+  };
+
+  # vulnix --system -vv
+  # firejail, apparmor, selinux
 
 }
