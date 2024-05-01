@@ -1,5 +1,7 @@
 { pkgs, ... }:
 
+# https://tiiuae.github.io/ghaf/architecture/architecture.html
+# https://github.com/tiiuae/sbomnix
 # https://spectrum-os.org/doc/
 # https://nixos.wiki/wiki/Security
 # https://wiki.nixos.org/wiki/Systemd/Hardening
