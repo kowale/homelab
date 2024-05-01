@@ -22,6 +22,10 @@ let
 
                     nvim-lspconfig
                     nvim-treesitter.withAllGrammars
+                    nvim-treesitter-context
+                    nvim-treesitter-refactor
+                    nvim-treesitter-textobjects
+                    nvim-treesitter-textsubjects
 
                     leap-nvim
                     plenary-nvim
@@ -29,9 +33,8 @@ let
                     gitsigns-nvim
                     toggleterm-nvim
                     telescope-nvim
-                    nvim-treesitter-context
-                    nvim-treesitter-refactor
-                    nvim-treesitter-textobjects
+
+                    harpoon
 
                     nvim-cmp
                     cmp-path
@@ -39,6 +42,7 @@ let
                     cmp-nvim-lsp
                     cmp-rg
                     cmp-calc
+                    cmp-git
 
                     vim-nix
                     vim-oscyank

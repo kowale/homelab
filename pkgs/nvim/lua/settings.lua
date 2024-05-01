@@ -1,4 +1,4 @@
--- Set leader to space
+-- Set leader to comma
 vim.keymap.set("n", " ", "<Nop>", { silent = true, remap = false })
 vim.g.mapleader = ","
 
