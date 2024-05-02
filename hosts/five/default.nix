@@ -24,6 +24,7 @@
     ../../modules/picom.nix
     ../../modules/laptop.nix
     ../../modules/tailscale.nix
+    ../../modules/cursor.nix
   ];
 
   boot.loader = {

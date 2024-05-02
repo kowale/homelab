@@ -7,6 +7,10 @@
 
 {
 
+  location.provider = "geoclue2";
+  services.geoclue2.enable = true;
+  services.redshift.enable = true;
+
   environment.systemPackages = with pkgs; [
     xorg.xset
     dunst
@@ -24,30 +28,16 @@
     rofi
   ];
 
-  # Hide cursor after 1s
+  # Hide cursor after 10s
   services.unclutter = {
     enable = true;
-    timeout = 1;
+    timeout = 10;
   };
 
   # Run `xset q` to see current state
   environment.etc."X11/xinit/xinitrc".text = ''
     xset -b # disable bell
     xset s 120 # screensaver after 120s
-
-    # start user's dbus daemon
-    if test -z "$DBUS_SESSION_BUS_ADDRESS"; then
-      eval $(dbus-launch --exit-with-session --sh-syntax)
-    fi
-    systemctl --user import-environment DISPLAY XAUTHORITY
-    if command -v dbus-update-activation-environment >/dev/null 2>&1; then
-      dbus-update-activation-environment DISPLAY XAUTHORITY
-    fi
-
-    # start user's graphical-session target
-    systemctl --user start graphical-session.target
-
-    # launch xmonad
     exec xmonad
   '';
 
@@ -126,8 +116,12 @@
     };
 
     displayManager = {
-      startx.enable = true;
-      defaultSession = "none+xmonad";
+      # startx.enable = true;
+      # defaultSession = "none+xmonad";
+      lightdm = {
+        enable = true;
+        greeters.slick.enable = true;
+      };
       autoLogin = {
         enable = true;
         user = "kon";
@@ -200,7 +194,7 @@
           , ("M-n", spawn "notify-send hi")
           , ("M-m", windowMenu)
           , ("M-g", goToSelected def)
-          , ("<Print>", unGrab *> spawn "scrot -s")
+          , ("<Print>", spawn "flameshot gui")
           , ("<XF86MonBrightnessUp>", spawn "light -A 10")
           , ("<XF86MonBrightnessDown>", spawn "light -U 10")
           , ("<XF86AudioRaiseVolume>", spawn "pw-volume change +1%")
@@ -209,22 +203,15 @@
           , ("<XF86Favorites>", spawn "notify-send '*'")
           ]
 
-        -- TODO: manage via systemd?
         startupHook' = do
-          -- spawnOnce "picom"
-          -- spawnOnce "dunst"
           spawnOnce "notify-send 'spawned.'"
 
-        -- xprop | grep WM_CLASS to find className
-        -- manageHook' = composeOne [ className =? ".arandr-wrapped" -?> doFloat
-        --                         , isDialog                       -?> doCenterFloat
-        --                       ] <+> swallowEventHook $ (className =? "Alacritty") (return True)
-
-        swallowHook' = swallowEventHook (className =? "Alacritty") (return True)
+        swallowHook' = swallowEventHook
+          (className =? "Alacritty") (return True)
 
         manageHook' = composeAll
           [ className =? ".arandr-wrapped" --> doFloat
-          , isDialog                       --> doFloat
+          , isDialog                       --> doCenterFloat
           ]
 
         -- Define some colors for xmobar

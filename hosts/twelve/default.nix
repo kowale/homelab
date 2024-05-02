@@ -23,6 +23,7 @@
     ../../modules/hardening.nix
     ../../modules/picom.nix
     ../../modules/laptop.nix
+    ../../modules/cursor.nix
   ];
 
   boot.loader = {
