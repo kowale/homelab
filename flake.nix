@@ -26,13 +26,11 @@
 
     in {
 
-        devShells.${system} = {
-          tools = pkgs.callPackage;
-        };
-
         packages.${system} = {
           nvim = pkgs.callPackage ./pkgs/nvim {};
           tools = {
+            name = "tools";
+            type = "derivation";
             run-host-vm = pkgs.writeScriptBin "run-host-vm" ''
               set -eou pipefail
               nix build .#nixosConfigurations."$1".config.system.build.vm -vv -L

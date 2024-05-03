@@ -43,10 +43,16 @@ let
     };
 
 in {
+
   programs.git = {
     enable = true;
     package = pkgs.gitFull;
     config = [ base alias user ];
+  };
+
+
+  environment.shellAliases = {
+    gc = "git commit -m";
   };
 }
 
