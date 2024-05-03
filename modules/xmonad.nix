@@ -1,5 +1,6 @@
-{ pkgs, ... }:
+{ pkgs, lib, ... }:
 
+# https://github.com/ksevelyar/idempotent-desktop
 # https://github.com/NeshHari/XMonad
 # https://xmonad.org/TUTORIAL.html
 # https://wiki.archlinux.org/title/Xmonad
@@ -10,6 +11,10 @@
   location.provider = "geoclue2";
   services.geoclue2.enable = true;
   services.redshift.enable = true;
+
+  environment.shellAliases = {
+    xx = "sudo systemctl restart display-manager";
+  };
 
   environment.systemPackages = with pkgs; [
     xorg.xset
@@ -29,12 +34,13 @@
   ];
 
   # Hide cursor after 10s
-  services.unclutter = {
-    enable = true;
-    timeout = 10;
-  };
+  # services.unclutter = {
+  #   enable = true;
+  #   timeout = 10;
+  # };
 
   # Run `xset q` to see current state
+  # Duplicated in serverFlagsSection
   environment.etc."X11/xinit/xinitrc".text = ''
     xset -b # disable bell
     xset s 120 # screensaver after 120s
@@ -84,6 +90,8 @@
     Option "TearFree" "true"
     '';
 
+  services.greenclip.enable = true;
+
   services.dbus = {
     enable = true;
     packages = [ pkgs.dconf ];
@@ -100,33 +108,65 @@
       touchpad = {
         tapping = false;
         disableWhileTyping = true;
+        accelProfile = "adaptive";
+        # clickMethod = "buttonareas";
+        # scrollMethod = "edge";
+        # naturalScrolling = false;
       };
     };
 
     xautolock = {
       enable = true;
-      time = 1; # minutes
+      time = 5; # minutes
       locker = "/run/wrappers/bin/physlock";
       killtime = 10; # mins
       killer = "${pkgs.systemd}/bin/systemctl suspend";
       extraOptions = [ "-secure" "-detectsleep" ];
       enableNotifier = true;
-      notify = 10; # seconds
-      notifier = ''${pkgs.libnotify}/bin/notify-send "10s to lock"'';
+      notify = 15; # seconds
+      notifier = ''${pkgs.libnotify}/bin/notify-send "15s to lock"'';
     };
 
+    # xset q
+    # serverFlagsSection = ''
+    #  Option "BlankTime" "120"
+    #  Option "StandbyTime" "0"
+    #  Option "SuspendTime" "0"
+    #  Option "OffTime" "0"
+    # '';
+
     displayManager = {
-      # startx.enable = true;
-      # defaultSession = "none+xmonad";
+      defaultSession = "none+xmonad";
       lightdm = {
         enable = true;
-        greeters.slick.enable = true;
+        background = "#000000";
+        # greeter.enable = false;
+        # clock-format = "%D";
+        # indicators = [ "~host" ];
+        greeters.enso = {
+          enable = true;
+          blur = false;
+          # theme = {
+          #   name = "Dracula";
+          #   package = pkgs.dracula-theme;
+          # };
+          # iconTheme = {
+          #   name = "ePapirus";
+          #   package = pkgs.papirus-icon-theme;
+          # };
+          # cursorTheme = {
+          #   name = "Vanilla-DMZ";
+          #   package = pkgs.vanilla-dmz;
+          # };
+        };
       };
       autoLogin = {
         enable = true;
         user = "kon";
       };
     };
+
+    desktopManager.xterm.enable = false;
 
     windowManager.xmonad = {
       enable = true;

@@ -1,31 +1,43 @@
 { config, pkgs, ... }:
 
 {
-    console = {
-      keyMap = "us";
-      earlySetup = true;
-      packages = [ pkgs.terminus_font ];
-      font = "ter-u12n";
+
+  services.getty = {
+    helpLine = ''
+      Press `i`
+      '';
+      greetingLine = "\l";
     };
 
-    i18n.defaultLocale = "en_US.UTF-8";
+  console = {
+    keyMap = "us";
+    earlySetup = true;
+    packages = [ pkgs.terminus_font ];
+    font = "ter-u12n";
+  };
 
-    fonts.enableDefaultPackages = true;
+  i18n.defaultLocale = "en_US.UTF-8";
 
-    fonts.fontconfig = {
-        enable = true;
-        antialias = true;
-        defaultFonts = {
-          monospace = [ "Terminus" ];
-        };
+  fonts.enableDefaultPackages = true;
+
+  fonts.fontconfig = {
+    enable = true;
+    cache32Bit = true;
+    hinting.enable = true;
+    antialias = true;
+    defaultFonts = {
+      monospace = [ "Terminus" ];
+      sansSerif = [ "DejaVu Sans" ];
+      serif = [ "DejaVu Serif" ];
     };
+  };
 
-    fonts.packages = with pkgs; [
-        dejavu_fonts
-        noto-fonts
-        fira-code
-        terminus_font
-        inter
-    ];
+  fonts.packages = with pkgs; [
+    dejavu_fonts
+    terminus_font
+    inter
+    noto-fonts-emoji # emoji
+    ipafont # Japanese
+  ];
 }
 
