@@ -13,6 +13,7 @@
     ../../modules/git.nix
     ../../modules/zsh.nix
     ../../modules/firefox.nix
+    ../../modules/chromium.nix
     ../../modules/users.nix
     ../../modules/wireless.nix
     ../../modules/keepassxc.nix

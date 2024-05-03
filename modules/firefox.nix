@@ -257,6 +257,11 @@
           installation_mode = "force_installed";
         };
 
+        "bypasspaywalls@bypasspaywalls" = {
+          install_url = "https://github.com/iamadamdev/bypass-paywalls-chrome/releases/latest/download/bypass-paywalls-firefox.xpi";
+          installation_mode = "force_installed";
+        };
+
       };
 
       Handlers = {

@@ -228,6 +228,7 @@
           }
           `additionalKeysP`
           [ ("M-f", spawn "firefox")
+          , ("M-c", spawn "chromium")
           , ("M-p", spawn "rofi -show run")
           , ("S-M-l", spawn "physlock")
           , ("S-M-<Backspace>", kill)
