@@ -17,8 +17,30 @@
     enable = true;
     languagePacks = [ "en-US" ];
 
+    # HM :(
+    # For now move manually to .mozilla/firefox/7y2r4ss.default/chrome/userChrome.css
+    #profiles.default = {
+    #  name = "Default";
+    #  userChrome = ''
+    #    .titlebar-buttonbox-container{ display:none }
+    #    .titlebar-spacer[type="post-tabs"]{ display:none }
+    #    .titlebar-spacer {
+    #        display: none !important;
+    #    }
+    #    #TabsToolbar {
+    #        padding-inline-start: initial !important;
+    #    }
+    #    .tabbrowser-tabs:not([movingtab]) .tabbrowser-tab[first-visible-tab] .tab-background,
+    #    .tabbrowser-tabs[movingtab] .tabbrowser-tab[first-visible-tab][style*="translateX(0px)"] .tab-background {
+    #        border-inline-start: initial !important;
+    #    }
+    #    .tab-line { display: none !important; }
+    #  '';
+    #};
+
     # about:policies
     policies = {
+      OfferToSaveLogins = false;
       DisableTelemetry = true;
       DisableAppUpdate = true;
       DisableFirefoxStudies = true;
@@ -30,11 +52,13 @@
       DisableFirefoxScreenshots = true;
       DisableAccounts = true;
       DontCheckDefaultBrowser = true;
-      DisplayMenuBar = "default-off";
+      DisplayMenuBar = "never";
+      DisplayBookmarksToolbar = "never";
       SearchBar = "unified";
       ShowHomeButton = false;
       NoDefaultBookmarks = true;
       Homepage = "https://kszk.eu";
+      LegacyProfiles = false;
 
       # about:config
       # about:preferences
@@ -151,6 +175,9 @@
         "browser.tabs.loadInBackground" = true;
         "privacy.firstparty.isolate" = true;
         "privacy.firstparty.isolate.block_post_message" = true;
+        "toolkit.legacyUserProfileCustomizations.stylesheets" = true;
+        "browser.tabs.drawInTitlebar" = true;
+        "svg.context-properties.content.enabled" = true;
         # "security.dialog_enable_delay" = 0;
         # "security.notification_enable_delay" = 0;
         # "security.ssl3.rsa_fips_des_ede3_sha" = false;
