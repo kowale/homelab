@@ -24,6 +24,7 @@
     ../../modules/picom.nix
     ../../modules/laptop.nix
     ../../modules/cursor.nix
+    ../../modules/ssd.nix
   ];
 
   boot.loader = {
@@ -34,7 +35,6 @@
   time.timeZone = "Europe/London";
   networking.hostName = "twelve";
   services.getty.autologinUser = "kon";
-  # services.tailscale.enable = true;
 
   users.motd = ''
          ______________

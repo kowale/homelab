@@ -25,6 +25,7 @@
     ../../modules/laptop.nix
     ../../modules/tailscale.nix
     ../../modules/cursor.nix
+    ../../modules/ssd.nix
   ];
 
   boot.loader = {
