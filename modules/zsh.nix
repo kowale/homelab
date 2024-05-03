@@ -3,12 +3,19 @@
   # https://github.com/ohmyzsh/ohmyzsh/wiki/Themes
   # https://github.com/ohmyzsh/ohmyzsh/wiki/Plugins
 
-{
+let
+
+  ip-info = pkgs.writeScriptBin "ip-info" ''
+    ip -o addr show | awk '{print $2 " " $4}'
+  '';
+
+in {
 
   environment.shellAliases = {
       ll = "ls -lah";
       v = "nvim";
       p = "python -q";
+      t = "tmux new -A -s $1";
       cat = "bat --plain -P";
       gl = "git lo";
       gs = "git st";
@@ -21,6 +28,7 @@
 
   environment.systemPackages = with pkgs; [
     zoxide
+    ip-info
   ];
 
   users.defaultUserShell = pkgs.zsh;
@@ -41,36 +49,26 @@
     ];
     shellInit = ''
 
-    TIMER_FORMAT='%d'
+      TIMER_FORMAT='%d'
 
-    n() {
-        root="/home/kon/notes"
-        dir="$root/$(date -d today '+%Y/%m')"
-        file="$root/$(date -d today '+%Y/%m/%d.md')"
-        mkdir -p $dir
-        [ -f $file ] || { echo "# $(date -d today '+%Y-%m-%d')\n\n" > $file }
-        nvim -c "normal G" -- $file
-    }
+      n() {
+          root="/home/kon/notes"
+          dir="$root/$(date -d today '+%Y/%m')"
+          file="$root/$(date -d today '+%Y/%m/%d.md')"
+          mkdir -p $dir
+          [ -f $file ] || { echo "# $(date -d today '+%Y-%m-%d')\n\n" > $file }
+          nvim -c "normal G" -- $file
+      }
 
-
-    recall() {
-        root="/home/kon/other/recall"
-        dir="$root/$(date -d today '+%Y/%m')"
-        file="$root/$(date -d today '+%Y/%m/%d.md')"
-        mkdir -p $dir
-        [ -f $file ] || { echo "# $(date -d today '+%Y-%m-%d')\n\n" > $file }
-        nvim -c "normal G" -- $file
-    }
-
-    f() {
-        file=$(
-            fzf -m \
-            --bind ctrl-a:select-all,ctrl-d:deselect-all,ctrl-t:toggle-all \
-            --print0 \
-            --preview 'bat --theme Dracula --color=always {}'
-        ) || return
-        nvim -- $file
-    }
+      f() {
+          file=$(
+              fzf -m \
+              --bind ctrl-a:select-all,ctrl-d:deselect-all,ctrl-t:toggle-all \
+              --print0 \
+              --preview 'bat --theme Dracula --color=always {}'
+          ) || return
+          nvim -- $file
+      }
 
     '';
     ohMyZsh = {
