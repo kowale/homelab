@@ -29,11 +29,11 @@ vim.keymap.set("n", "<leader>1", function() ui.nav_file(1) end)
 vim.keymap.set("n", "<leader>2", function() ui.nav_file(2) end)
 vim.keymap.set("n", "<leader>3", function() ui.nav_file(3) end)
 vim.keymap.set("n", "<leader>4", function() ui.nav_file(4) end)
-vim.keymap.set("n", "<leader>h", function() ui.nav_prev() end)
-vim.keymap.set("n", "<ledaer>l", function() ui.nav_next() end)
 
 -- Treesitter base
 require("nvim-treesitter.configs").setup {
+    auto_install = false,
+
     incremental_selection = {
         enable = true,
         keymaps = {
@@ -59,7 +59,6 @@ require('nvim-treesitter.configs').setup {
             ['.'] = 'textsubjects-smart',
             [';'] = 'textsubjects-container-outer',
             ['i;'] = 'textsubjects-container-inner',
-            ['i;'] = { 'textsubjects-container-inner', desc = "Select inside containers (classes, functions, etc.)" },
         },
     },
 }
@@ -69,61 +68,37 @@ require'nvim-treesitter.configs'.setup {
   textobjects = {
     select = {
       enable = true,
-
-      -- Automatically jump forward to textobj, similar to targets.vim
       lookahead = true,
-
       keymaps = {
-        -- You can use the capture groups defined in textobjects.scm
+        -- textobjects.scm
         ["af"] = "@function.outer",
         ["if"] = "@function.inner",
         ["ac"] = "@class.outer",
-        -- You can optionally set descriptions to the mappings (used in the desc parameter of
-        -- nvim_buf_set_keymap) which plugins like which-key display
         ["ic"] = { query = "@class.inner", desc = "Select inner part of a class region" },
-        -- You can also use captures from other query groups like `locals.scm`
         ["as"] = { query = "@scope", query_group = "locals", desc = "Select language scope" },
       },
-      -- You can choose the select mode (default is charwise 'v')
-      --
-      -- Can also be a function which gets passed a table with the keys
-      -- * query_string: eg '@function.inner'
-      -- * method: eg 'v' or 'o'
-      -- and should return the mode ('v', 'V', or '<c-v>') or a table
-      -- mapping query_strings to modes.
       selection_modes = {
         ['@parameter.outer'] = 'v', -- charwise
         ['@function.outer'] = 'V', -- linewise
         ['@class.outer'] = '<c-v>', -- blockwise
       },
-      -- If you set this to `true` (default is `false`) then any textobject is
-      -- extended to include preceding or succeeding whitespace. Succeeding
-      -- whitespace has priority in order to act similarly to eg the built-in
-      -- `ap`.
-      --
-      -- Can also be a function which gets passed a table with the keys
-      -- * query_string: eg '@function.inner'
-      -- * selection_mode: eg 'v'
-      -- and should return true or false
-      include_surrounding_whitespace = true,
+      include_surrounding_whitespace = false,
     },
   },
 }
 
 -- Treesitter context
 require'treesitter-context'.setup{
-  enable = true, -- Enable this plugin (Can be enabled/disabled later via commands)
-  max_lines = 0, -- How many lines the window should span. Values <= 0 mean no limit.
-  min_window_height = 0, -- Minimum editor window height to enable context. Values <= 0 mean no limit.
+  enable = true,
+  max_lines = 5,
+  min_window_height = 0,
   line_numbers = true,
-  multiline_threshold = 20, -- Maximum number of lines to show for a single context
-  trim_scope = 'outer', -- Which context lines to discard if `max_lines` is exceeded. Choices: 'inner', 'outer'
-  mode = 'cursor',  -- Line used to calculate context. Choices: 'cursor', 'topline'
-  -- Separator between context and content. Should be a single character string, like '-'.
-  -- When separator is set, the context will only show up when there are at least 2 lines above cursorline.
+  multiline_threshold = 5,
+  trim_scope = 'outer',
+  mode = 'cursor',
   separator = nil,
-  zindex = 20, -- The Z-index of the context window
-  on_attach = nil, -- (fun(buf: integer): boolean) return false to disable attaching
+  zindex = 20,
+  on_attach = nil,
 }
 
 -- Treesitter refactor
@@ -206,9 +181,34 @@ vim.keymap.set("n", "s", function ()
 end)
 
 -- Language server protocol (LSP)
+-- From https://github.com/neovim/nvim-lspconfig/blob/master/doc/server_configurations.md
 -- TODO: consider writing these myself
-local lspconfig = require('lspconfig')
-lspconfig.pyright.setup({})
+
+-- Python
+require'lspconfig'.pyright.setup {
+    analysis = {
+        autoSearchPaths = true,
+        useLibraryCodeForTypes = true,
+    }
+}
+
+-- Elixir
+require'lspconfig'.elixirls.setup {
+    cmd = { "elixir-ls" }
+}
+
+-- Nix
+-- require'lspconfig'.statix.setup {}
+require'lspconfig'.nixd.setup {}
+require'lspconfig'.nil_ls.setup {}
+
+-- Lua
+-- require'lspconfig'.lua_ls.setup {}
+
+-- Writing
+-- TODO: try textlsp, vale-ls, prosemd-lsp
+-- marksman doesn't handle ref links
+-- ltex is way too heavy for me
 
 -- Completions
 local cmp = require'cmp'
