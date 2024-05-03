@@ -11,6 +11,12 @@ Powers granted by Nix and NixOS.
 - `twelve` is an ancient T480 with an i5 and a touchscreen
 - `pear` is a budget AMD desktop with an RTX 3060 (coming soon)
 
+## Tools
+
+```
+nix run .#tools.run-host-vm
+```
+
 ## Moodboard
 
 - https://github.com/NixOS/infra

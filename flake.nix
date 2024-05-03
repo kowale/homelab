@@ -24,10 +24,21 @@
             inherit system;
         };
 
-    in rec {
+    in {
 
-        packages.${system} = rec {
-            nvim = pkgs.callPackage ./pkgs/nvim {};
+        devShells.${system} = {
+          tools = pkgs.callPackage;
+        };
+
+        packages.${system} = {
+          nvim = pkgs.callPackage ./pkgs/nvim {};
+          tools = {
+            run-host-vm = pkgs.writeScriptBin "run-host-vm" ''
+              set -eou pipefail
+              nix build .#nixosConfigurations."$1".config.system.build.vm -vv -L
+              ./result/bin/run-"$1"-vm
+            '';
+          };
         };
 
         nixosConfigurations = {
