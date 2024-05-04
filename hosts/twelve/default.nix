@@ -26,6 +26,9 @@
     ../../modules/laptop.nix
     ../../modules/cursor.nix
     ../../modules/ssd.nix
+    ../../modules/cli.nix
+    ../../modules/hi.nix
+    ../../modules/options/user.nix
   ];
 
   boot.loader = {
@@ -33,9 +36,10 @@
     efi.canTouchEfiVariables = true;
   };
 
+  user.name = "kon";
+
   time.timeZone = "Europe/London";
   networking.hostName = "twelve";
-  services.getty.autologinUser = "kon";
 
   users.motd = ''
          ______________
@@ -51,54 +55,6 @@
             \_____\___\____\
 
   '';
-
-  age.secrets.hello.file = ../../secrets/hello.age;
-
-  environment.variables = {
-    TERM = "linux";
-    EDITOR = "nvim";
-    HI = config.age.secrets.hello.path;
-  };
-
-  environment.systemPackages = with pkgs; [
-    (callPackage ../../pkgs/nvim {})
-    htop
-    ripgrep
-    fd
-    sd
-    bat
-    fzf
-    jq
-    htmlq
-    nq
-    btop
-    bmon
-    usbtop
-    psmisc
-    sysstat
-    hdparm
-    ncdu
-    iotop
-    lm_sensors
-    lsof
-    wavemon
-    chromium
-    smartmontools
-    qrcp
-    ranger
-    tmux
-    pciutils
-    binutils
-    acpi
-    rofi
-    xclip
-    xsel
-    python3
-  ];
-
-  services.autorandr.enable = true;
-  services.devmon.enable = true;
-  programs.light.enable = true;
 
   nixpkgs.config.allowUnfree = true;
   system.nixos.label = "baroque";

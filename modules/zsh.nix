@@ -5,11 +5,23 @@
 
 let
 
+  # Digestible local IP information
   ip-info = pkgs.writeScriptBin "ip-info" ''
     ip -o addr show | awk '{print $2 " " $4}'
   '';
 
+   # roc = run (command) on change (in files below)
+   roc = pkgs.writeScriptBin "roc" ''
+    # roc "md nix" "nix build .#docs -vv -L"
+    fd -e $1 | entr -c $2
+  '';
+
 in {
+
+  environment.variables = {
+    TERM = "linux";
+    EDITOR = "nvim";
+  };
 
   environment.shellAliases = {
       ll = "ls -lah";
@@ -22,13 +34,14 @@ in {
       ga = "git add -A";
       gd = "git diff";
       ff = "firefox";
-      cd = "z";
+      c = "z";
       sw = "sudo nixos-rebuild switch --flake .#$(hostname) -vv";
     };
 
   environment.systemPackages = with pkgs; [
     zoxide
     ip-info
+    roc
   ];
 
   users.defaultUserShell = pkgs.zsh;
@@ -46,6 +59,7 @@ in {
       "HIST_IGNORE_DUPS"
       "EXTENDED_HISTORY"
       "RM_STAR_WAIT"
+
     ];
     shellInit = ''
 
@@ -69,8 +83,8 @@ in {
           ) || return
           nvim -- $file
       }
-
     '';
+
     ohMyZsh = {
         enable = true;
         theme = "fishy";

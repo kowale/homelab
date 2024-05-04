@@ -12,12 +12,6 @@ in
     execWheelOnly = true;
   };
 
-  age.secrets."kon" = {
-    owner = "kon";
-    group = "wheel";
-    file = ../secrets/kon.age;
-  };
-
   # users.mutableUsers = false;
 
   users.users.kon = {

@@ -73,6 +73,7 @@ let
         cmp-calc
         cmp-git
 
+        vim-sleuth
         vim-nix
         vim-elixir
         vim-oscyank

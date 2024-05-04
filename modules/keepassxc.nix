@@ -23,7 +23,7 @@ in {
 
   age.secrets."homelab.kdbx.tar" = {
     file = ../secrets/homelab.kdbx.tar.age;
-    owner = "kon";
+    owner = config.user.name;
     group = "wheel";
   };
 

@@ -8,6 +8,10 @@
 
 {
 
+  services.autorandr.enable = true;
+  services.devmon.enable = true;
+  programs.light.enable = true;
+
   location.provider = "geoclue2";
   services.geoclue2.enable = true;
   services.redshift.enable = true;

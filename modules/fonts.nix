@@ -2,13 +2,14 @@
 
 {
 
+  # Console logins automatically
   services.getty = {
+    autologinUser = "kon";
     helpLine = ''
       Press `i`
-      '';
-      greetingLine = "\l";
-    };
-
+    '';
+    greetingLine = "\l";
+  };
   console = {
     keyMap = "us";
     earlySetup = true;

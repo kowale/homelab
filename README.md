@@ -13,8 +13,11 @@ Powers granted by Nix and NixOS.
 
 ## Tools
 
+Build and run a QEMU VM for a host.
+You can do this from any Linux machine.
+
 ```
-nix run .#tools.run-host-vm
+nix run .#tools.run-host-vm five
 ```
 
 ## Moodboard
