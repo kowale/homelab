@@ -21,6 +21,7 @@ let
       core.fsmonitor = true;
       advice.addEmptyPathspec = false;
       core.pager = "cat";
+      diff.tool = "difftastic";
     };
 
     alias.alias = {
@@ -43,6 +44,14 @@ let
     };
 
 in {
+
+  environment.systemPackages = with pkgs; [
+    git-absorb
+    git-doc
+    difftastic
+    gitui
+    gh
+  ];
 
   programs.git = {
     enable = true;
