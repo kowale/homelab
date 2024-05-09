@@ -22,8 +22,9 @@
     sudo.execWheelOnly = true;
   };
 
-  # TODO: `opensnitch-ui` to start a session
-  services.opensnitch.enable = true;
+  # Significant CPU usage for some reason
+  # TODO: automate `opensnitch-ui` to start a session
+  services.opensnitch.enable = false;
 
   environment.etc."/clamav/onVirus" = {
     text = ''
