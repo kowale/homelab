@@ -3,8 +3,10 @@
   neovim-unwrapped,
   wrapNeovimUnstable,
   wrapNeovim,
+  writeShellApplication,
   neovimUtils,
   vimUtils,
+  nodePackages,
   vimPlugins,
   symlinkJoin,
   pyright,
@@ -93,18 +95,27 @@ in
 
     symlinkJoin {
       name = "nvim-with-deps";
+
+      # https://ertt.ca/blog/2022/01-12-nix-symlinkJoin-nodePackages/
+      # https://discourse.nixos.org/t/symlinkjoin-and-nodepackages/34542
+      postBuild = ''
+        for f in $out/lib/node_modules/.bin/*; do
+          path="$(readlink --canonicalize-missing "$f")"
+          ln -s "$path" "$out/bin/$(nasename $f)"
+        done
+      '';
+
       paths = [
+
+        (  writeShellApplication {
+          name = "pyright-langserver";
+          runtimeInputs = [ pyright ];
+          text = "pyright-langserver";
+        } )
+
         nvim
-
-        # TODO: https://discourse.nixos.org/t/symlinkjoin-and-nodepackages/34542
-        # (  writeShellApplication {
-        #   name = "pyright-langserver";
-        #   runtimeInputs = [ pyright ];
-        #   text = "pyright-langserver";
-        # } )
-
         pyright
-        elixir-ls
+        nodePackages.pyright
         nixd
         nil
       ];

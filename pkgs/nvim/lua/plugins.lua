@@ -186,10 +186,10 @@ end)
 
 -- Python
 require'lspconfig'.pyright.setup {
-    analysis = {
-        autoSearchPaths = true,
-        useLibraryCodeForTypes = true,
-    }
+    -- analysis = {
+    --     autoSearchPaths = true,
+    --     useLibraryCodeForTypes = true,
+    -- }
 }
 
 -- Elixir
