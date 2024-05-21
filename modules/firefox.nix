@@ -220,6 +220,9 @@
         # "datareporting.healthreport.infoURL" = "127.0.0.1";
         # "datareporting.healthreport.service.enabled" = false;
         # "datareporting.healthreport.uploadEnabled" = false;
+        "gfx.webrender.all" = true;
+        "media.ffmpeg.vaapi.enabled" = true;
+        "widget.dmabuf.force-enabled" = true;
       };
 
       # about:addons
