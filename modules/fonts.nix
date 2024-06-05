@@ -39,6 +39,7 @@
     inter
     noto-fonts-emoji # emoji
     ipafont # Japanese
+    uiua386
   ];
 }
 
