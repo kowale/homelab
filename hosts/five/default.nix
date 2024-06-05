@@ -30,6 +30,7 @@
     ../../modules/cli.nix
     ../../modules/gui.nix
     ../../modules/hi.nix
+    ../../modules/monitoring.nix
     ../../modules/options/user.nix
   ];
 
