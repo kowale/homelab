@@ -28,6 +28,7 @@
     ../../modules/cursor.nix
     ../../modules/ssd.nix
     ../../modules/cli.nix
+    ../../modules/gui.nix
     ../../modules/hi.nix
     ../../modules/options/user.nix
   ];
@@ -70,12 +71,43 @@
     enable = true;
     driSupport32Bit = true;
     extraPackages = with pkgs; [
-      vaapiIntel # LIBVA_DRIVER_NAME=iHD
-      vaapiVdpau # LIBVA_DRIVER_NAME=i965
+      vaapiIntel
+      vaapiVdpau
+      intel-media-driver
       libvdpau-va-gl
     ];
   };
   environment.sessionVariables = { LIBVA_DRIVER_NAME = "iHD"; };
 
+  # services.nginx.enable = true;
+  # services.nginx.virtualHosts."spar.five.local" = {
+  #     locations."/".proxyPass = "http://127.0.0.1:8000";
+  #   };
+
+  services.caddy = {
+    enable = true;
+    virtualHosts = {
+
+      "spar.five.local".extraConfig = ''
+        encode gzip
+        tls internal
+        reverse_proxy http://127.0.0.1:8000
+      '';
+
+      "docs.five.local".extraConfig = ''
+        encode gzip
+        tls internal
+        file_server
+        root * ${self.outputs.packages.x86_64-linux.docs}
+      '';
+
+    };
+  };
+
+  networking.firewall.allowedTCPPorts = [ 80 443 8000 ];
+
+  networking.extraHosts = ''
+    127.0.0.1 docs.five.local spar.five.local
+  '';
 }
 
