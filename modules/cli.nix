@@ -22,17 +22,21 @@
     iotop
     lm_sensors
     lsof
-    chromium
     qrcp
     ranger
     tmux
     pciutils
     binutils
     acpi
-    rofi
-    xclip
-    xsel
     python3
     graphviz
+    speedtest-rs
+    tree
+    wget
+    zip
+    gh
+    iftop
+    iperf2
+    elinks
   ];
 }
