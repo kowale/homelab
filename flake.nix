@@ -12,6 +12,10 @@
         #   url = "github:nix-community/lanzaboote/v0.3.0";
         #   inputs.nixpkgs.follows = "nixpkgs";
         # };
+        rocs = {
+            url = "github:kowale/rocs";
+            inputs.nixpkgs.follows = "nixpkgs";
+        };
     };
 
     outputs = { self, nixpkgs, ... } @ inputs:
@@ -26,7 +30,14 @@
 
     in {
 
-        packages.${system} = {
+      packages.${system} = {
+
+          docs = inputs.rocs.lib.buildSite {
+            inherit pkgs;
+            root = self.outPath;
+            emoji = "⚗️";
+          };
+
           nvim = pkgs.callPackage ./pkgs/nvim {};
           tools = {
             name = "tools";
