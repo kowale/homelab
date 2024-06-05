@@ -97,11 +97,32 @@
         "type": "github"
       }
     },
+    "rocs": {
+      "inputs": {
+        "nixpkgs": [
+          "nixpkgs"
+        ]
+      },
+      "locked": {
+        "lastModified": 1716830765,
+        "narHash": "sha256-SY6/gbFO8G0mzE3/dcGOUVoxyL/qr3ec5dd+hjzeT3s=",
+        "owner": "kowale",
+        "repo": "rocs",
+        "rev": "27686392a93a8bfaeabeaf209e026b95dacff307",
+        "type": "github"
+      },
+      "original": {
+        "owner": "kowale",
+        "repo": "rocs",
+        "type": "github"
+      }
+    },
     "root": {
       "inputs": {
         "agenix": "agenix",
         "hardware": "hardware",
-        "nixpkgs": "nixpkgs"
+        "nixpkgs": "nixpkgs",
+        "rocs": "rocs"
       }
     },
     "systems": {
