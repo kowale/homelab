@@ -7,9 +7,39 @@ Powers granted by Nix and NixOS.
 
 ## Hardware
 
-- `five` is an old T14 (1st gen) with an i7
-- `twelve` is an ancient T480 with an i5 and a touchscreen
-- `pear` is a budget AMD desktop with an RTX 3060 (coming soon)
+### `five`
+
+Old T14 (1st gen) with an i7-10510U,
+32 GiB of RAM, 460 GiB of NVME.
+
+### `twelve`
+
+Ancient T480 with an i5 and a touchscreen.
+Supports external battery.
+
+### `moth`
+
+MacBook Pro with an M1 and 16 GiB of RAM.
+Backspace jams every now and then.
+
+### `pear`
+
+Budget AMD box with an RTX 3060 (coming soon).
+
+### `berry-tag-idx`
+
+One of [berries] with some tag and index.
+A berry may be responsible for a
+single, local, long-running task, such as
+
+- Live information display
+- Temperature, humidity, CO2
+- Monitor APRS with RTL-SDR
+- Route wake-on-LAN packets
+- Take a picture every 5 minutes
+- Network storage, DNS server
+
+[berries]: docs/berries.md
 
 ## Tools
 
@@ -45,4 +75,7 @@ nix run .#tools.run-host-vm five
 - https://github.com/nix-community/srvos
 - https://github.com/jonascarpay/nix
 - https://github.com/rnl-dei/nixrnl
+- https://github.com/ifd3f/infra
+- https://astrid.tech/projects/infrastructure/
+- https://git.polynom.me/PapaTutuWawa/nixos-config
 
