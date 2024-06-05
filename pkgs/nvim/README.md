@@ -20,4 +20,6 @@ This is my personal Neovim configuration.
 - Open an `.md` file,
   run through `cmark` and open in Firefox.
   Rerun on source file changes.
+- Lock scrolling horizontally
+- Colorscheme
 
