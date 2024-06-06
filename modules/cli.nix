@@ -38,5 +38,6 @@
     iftop
     iperf2
     elinks
+    pmacct
   ];
 }
