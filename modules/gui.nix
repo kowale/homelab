@@ -21,5 +21,11 @@
     xournal # draw (including on pdfs)
     wireshark
     xorg.xev
+    kooha # record screen
+    zeal # offline API docs
+    pdfarranger
+    pdfgrep
+    qpdf
+    signal-desktop
   ];
 }

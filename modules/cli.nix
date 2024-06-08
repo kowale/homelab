@@ -39,5 +39,7 @@
     iperf2
     elinks
     pmacct
+    dogdns
+    nethogs
   ];
 }

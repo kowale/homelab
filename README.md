@@ -11,16 +11,21 @@ Powers granted by Nix and NixOS.
 
 Old T14 (1st gen) with an i7-10510U,
 32 GiB of RAM, 460 GiB of NVME.
+This is my daily driver.
 
 ### `twelve`
 
-Ancient T480 with an i5 and a touchscreen.
-Supports external battery.
+Hoary, gnarled T480 with an i5,
+touchscreen and an external battery.
+Used as low-risk travel option,
+previously occupied by ancient X220
+(rest in peace).
 
 ### `moth`
 
 MacBook Pro with an M1 and 16 GiB of RAM.
 Backspace jams every now and then.
+Planning to install Asahi on it soon.
 
 ### `pear`
 
@@ -78,4 +83,5 @@ nix run .#tools.run-host-vm five
 - https://github.com/ifd3f/infra
 - https://astrid.tech/projects/infrastructure/
 - https://git.polynom.me/PapaTutuWawa/nixos-config
+- https://github.com/lf-/dotfiles/
 
