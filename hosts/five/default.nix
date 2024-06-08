@@ -116,12 +116,13 @@
     enable = true;
     script = ''
       echo $DBUS_SESSION_BUS_ADDRESS
-      ${pkgs.libnotify}/bin/notify-send "$(date) $(< /home/kon/plan)"
+      ${pkgs.libnotify}/bin/notify-send "$(date)\n$(< /home/kon/plan)"
     '';
     serviceConfig = {
       Type = "oneshot";
       User = "kon"; # config.users.users.default.name;
       Environment = [
+        # TODO: why %S doesn't work?
         "DBUS_SESSION_BUS_ADDRESS=unix:path=/run/user/1000/bus"
       ];
     };
