@@ -110,5 +110,24 @@
   networking.extraHosts = ''
     127.0.0.1 docs.five.local spar.five.local
   '';
+
+  # https://paperless.blog/systemd-services-and-timers-in-nixos
+  systemd.services."remind-plan" = {
+    enable = true;
+    script = ''
+      echo $DBUS_SESSION_BUS_ADDRESS
+      ${pkgs.libnotify}/bin/notify-send "$(date) $(< /home/kon/plan)"
+    '';
+    serviceConfig = {
+      Type = "oneshot";
+      User = "kon"; # config.users.users.default.name;
+      Environment = [
+        "DBUS_SESSION_BUS_ADDRESS=unix:path=/run/user/1000/bus"
+      ];
+    };
+
+    # systemd-analyze calendar minutely
+    startAt = "*:0/15";
+  };
 }
 
