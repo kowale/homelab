@@ -63,6 +63,8 @@
       # about:config
       # about:preferences
       Preferences = {
+        "browser.gesture.swipe.left" = "";
+        "browser.gesture.swipe.right" = "";
         "browser.startup.homepage" = "about:newtab";
         "browser.download.dir" = "/home/kon/other/downloads";
         "browser.theme.content-theme" = 0;
