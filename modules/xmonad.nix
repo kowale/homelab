@@ -76,8 +76,66 @@
         - { key: "Minus", mods: "Control", action: "DecreaseFontSize"}
   '';
 
+  environment.etc."alacritty.toml".text = ''
+    [colors.primary]
+    background = "0x000000"
+    foreground = "0xffffff"
+
+    [font]
+    size = 8.0
+
+    [[keyboard.bindings]]
+    action = "SpawnNewInstance"
+    key = "T"
+    mods = "Control|Shift"
+
+    [[keyboard.bindings]]
+    action = "IncreaseFontSize"
+    key = "Plus"
+    mods = "Control|Shift"
+
+    [[keyboard.bindings]]
+    action = "IncreaseFontSize"
+    key = "Plus"
+    mods = "Control|Shift"
+
+    [[keyboard.bindings]]
+    action = "IncreaseFontSize"
+    key = "Plus"
+    mods = "Control|Shift"
+
+    [[keyboard.bindings]]
+    action = "IncreaseFontSize"
+    key = "Plus"
+    mods = "Control|Shift"
+
+    [[keyboard.bindings]]
+    action = "DecreaseFontSize"
+    key = "Minus"
+    mods = "Control"
+
+    [[keyboard.bindings]]
+    action = "DecreaseFontSize"
+    key = "Minus"
+    mods = "Control"
+
+    [[keyboard.bindings]]
+    action = "DecreaseFontSize"
+    key = "Minus"
+    mods = "Control"
+
+    [[keyboard.bindings]]
+    action = "DecreaseFontSize"
+    key = "Minus"
+    mods = "Control"
+
+    [window]
+    decorations = "None"
+    resize_increments = true
+  '';
+
   environment.variables = {
-    TERMINAL = "alacritty --config-file /etc/alacritty.yaml";
+    TERMINAL = "alacritty --config-file /etc/alacritty.toml";
   };
 
   services.physlock = {
@@ -223,7 +281,7 @@
         import XMonad.Util.SpawnOnce
 
         configuration = def
-          { terminal = "alacritty --config-file /etc/alacritty.yaml"
+          { terminal = "alacritty --config-file /etc/alacritty.toml"
           , modMask = mod4Mask
           , borderWidth = 0
           , manageHook = manageHook'
