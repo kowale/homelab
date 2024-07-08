@@ -1,3 +1,10 @@
+/*
+nix shell github:ryantm/agenix
+tar cf homelab.kdbx.tar homelab.kdbx
+cat homelab.kdbx.tar | agenix -e homelab.kdbx.tar.age
+agenix -r
+*/
+
 { config, pkgs, ... }:
 
 # https://security.stackexchange.com/questions/215202/how-secure-is-keepass-kdbx4-by-default
