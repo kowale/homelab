@@ -113,10 +113,10 @@
 
   # https://paperless.blog/systemd-services-and-timers-in-nixos
   systemd.services."remind-plan" = {
-    enable = true;
+    enable = false;
     script = ''
       echo $DBUS_SESSION_BUS_ADDRESS
-      ${pkgs.libnotify}/bin/notify-send "$(date)\n$(< /home/kon/plan)"
+      ${pkgs.libnotify}/bin/notify-send "$(< /home/kon/plan)"
     '';
     serviceConfig = {
       Type = "oneshot";
