@@ -2,7 +2,7 @@
     description = "Konstanty's homelab";
 
     inputs = {
-        nixpkgs.url = "github:nixos/nixpkgs/nixos-23.11";
+        nixpkgs.url = "github:nixos/nixpkgs/nixos-24.05";
         hardware.url = "github:nixos/nixos-hardware";
         agenix = {
           url = "github:ryantm/agenix";
@@ -47,8 +47,15 @@
               nix build .#nixosConfigurations."$1".config.system.build.vm -vv -L
               ./result/bin/run-"$1"-vm
             '';
-          };
         };
+      };
+
+        # checks.${system} = {
+          # eval-self = pkgs.writeText "eval-self" (builtins.deepSeq self "OK");
+          # reuse-lint = pkgs.runCommand "reuse-lint" {
+          #   nativeBuildInputs = [ pkgs.reuse ];
+          # } ''reuse --root ${./.} lint > "$out"'';
+        # };
 
         nixosConfigurations = {
 
