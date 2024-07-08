@@ -26,7 +26,17 @@
     '';
   };
 
-  services.thermald.enable = true;
+  services.thermald = {
+    enable = true;
+    ignoreCpuidCheck = true; # --ignore-cpuid-check
+  };
   services.upower.enable = true;
+
+  # Disable wakeups (interrupts, disturabnces) on first 4 cores
+  # https://www.kernel.org/doc/html/latest/timers/no_hz.html
+  boot.kernelParams = [
+    "nohz_full=1,2,3,4"
+    "isolcpus=1,2,3,4"
+  ];
 
 }
