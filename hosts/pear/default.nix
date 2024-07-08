@@ -92,10 +92,13 @@
 
   hardware.nvidia = {
     modesetting.enable = true;
-    powerManagement.enable = true;
+    powerManagement.enable = false;
+    powerManagement.finegrained = false;
+    nvidiaSettings = true;
     open = false;
     package = config.boot.kernelPackages.nvidiaPackages.stable;
   };
+
 
   services.xserver.videoDrivers = [ "nvidia" ];
 
@@ -104,33 +107,21 @@
     MaxFileSec=5day
   '';
 
-  virtualisation.docker = {
-      enable = true;
-      enableOnBoot = true;
-      enableNvidia = true;
-  };
+  # virtualisation.docker = {
+  #     enable = true;
+  #     enableOnBoot = true;
+  #     enableNvidia = true;
+  # };
 
   # https://github.com/suvash/nixos-nvidia-cuda-python-docker-compose
-  systemd.enableUnifiedCgroupHierarchy = false;
-
-  users.users.kon = {
-    isNormalUser = true;
-    initialPassword = "kon";
-    extraGroups = [ "wheel" "docker" "vboxusers" "tss" ];
-    home = "/home/kon";
-    shell = pkgs.zsh;
-    openssh.authorizedKeys.keys = [
-	"ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABgQC4zAHAi2lBi+i1kvcwtZJl7Ug1RxFDl8pTU22fZWRRofxXeRg10xWJwYGbuhQh4TzpmXwevNgYDjjimB/FFnsWyLL0za+sUPEkIBPd1AtqtrgpkZ8WxlY4XfaKmiU2E/tFER6oy1URuEhmtKTJBWntuQLNf9TeQ0PF17KkNFTMnjHwkwvkApjB46dcKzzwAoawOEAkBy5Z8cRjZ9QrBLj6Fecqz3zNdwr9NjeELfGinCoiUJOsmAcvq2pJoGjSikNntcwtO8DYaf1u0RRDJgId2DnXZZLCusJu3dMFIWY4MgqKPsLT/NpLFOPiNc77Lp3NN8MFIR5F9J541/y/V9oNifJzzWT7tRkFpPnwn7sNjpxRwf7mPY3hSOxdu2M5O/J+ouTtErRCGVYStwanmfC0Q0QAfCxTsLH3KIysCa7Ws+R80ygI7MNARCjMP2vrbpr05KgiBpIlE/c1W371bJWxjAZUmgkJa8HA0brHGZxBA0OFO8/dyKpLGnpQNktFgF0="
-    "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIE5fpblXJJz86UhhpLL+1nqlmyLAPK/rc4VQ1MczqyRU"
-    ];
-  };
+  # systemd.enableUnifiedCgroupHierarchy = false;
 
   environment.systemPackages = with pkgs; [
-    linuxPackages.nvidia_x11
-    #libGLU
-    #libGL
-    #cudaPackages_12_2.cudatoolkit
-    #cudaPackages.cudnn
+    # linuxPackages.nvidia_x11
+    # libGLU
+    # libGL
+    # cudaPackages_12_2.cudatoolkit
+    # cudaPackages.cudnn
   ];
 
 }

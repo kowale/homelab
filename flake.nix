@@ -77,7 +77,17 @@
                   ./hosts/five
               ];
               specialArgs = self;
+            };
+
+            pear = nixpkgs.lib.nixosSystem {
+              system = "x86_64-linux";
+              modules = with inputs; [
+                  agenix.nixosModules.default
+                  ./hosts/pear
+              ];
+              specialArgs = self;
           };
+
       };
     };
 }
