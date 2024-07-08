@@ -22,4 +22,7 @@ This is my personal Neovim configuration.
   Rerun on source file changes.
 - Lock scrolling horizontally
 - Colorscheme
+- Only run `cmp-rg` in Git repos
+  to avoid slowing down in e.g. `~`
+- Keep visual selection after indent (e.g. >>)
 

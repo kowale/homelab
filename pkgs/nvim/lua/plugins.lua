@@ -193,9 +193,9 @@ require'lspconfig'.pyright.setup {
 }
 
 -- Elixir
-require'lspconfig'.elixirls.setup {
-    cmd = { "elixir-ls" }
-}
+-- require'lspconfig'.elixirls.setup {
+--     cmd = { "elixir-ls" }
+-- }
 
 -- Nix
 -- require'lspconfig'.statix.setup {}
