@@ -1,8 +1,6 @@
-## Berries
+# berry
 
-Raspberry Pi [hardware]
-
-[hardware]: https://www.raspberrypi.com/documentation/computers/raspberry-pi.html#raspberry-pi-zero
+Template for Raspberry Pi [hardware].
 
 - RPi 5 (BCM2712)
   2.4GHz quad-core 64-bit Arm Cortex-A76
@@ -26,17 +24,29 @@ Raspberry Pi [hardware]
 - RPi Pico
   ()
 
-## Inventory
+A berry may be responsible for a
+single, local, long-running task, such as
+
+- Live information display
+- Temperature, humidity, CO2
+- Monitor APRS with RTL-SDR
+- Route wake-on-LAN packets
+- Take a picture every 5 minutes
+- Network storage, DNS server
+
+[hardware]: https://www.raspberrypi.com/documentation/computers/raspberry-pi.html#raspberry-pi-zero
+
+Owned
 
 - berry-02w-1
 - berry-0w-1
 - berry-0w-2
 - berry-0-1
 
-Coming soon
+Planned
 
-- _berry-5-1_
-- _berry-02w-2_
+- berry-5-1
+- berry-02w-2
 
 <!--
 
