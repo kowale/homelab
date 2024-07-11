@@ -17,6 +17,8 @@
     environmentFile = config.age.secrets.wireless.path;
     networks = {
       "SKYBEADJ".psk = "@SKYBEADJ@";
+      "SKYKDEKR".psk = "@SKYKDEKR@";
+      "VOO-GRBLGF7".psk = "@VOO-GRBLGF7@";
     };
   };
 }
