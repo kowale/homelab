@@ -1,11 +1,15 @@
 { config, ... }:
 
 # TODO: it seems agenix mangles the private key
-# nix-store --generate-binary-cache-key twelve.local:5000 twelve_binary_cache_key.secret twelve_binary_cache_key.pub
+# nix-store --generate-binary-cache-key cache.pear.local priv pub
 
 {
-  age.secrets."twelve_binary_cache_key" = {
-    file = ../secrets/twelve_binary_cache_key.age;
+  assertions = [
+    { assertion = config.networking.hostName == "pear"; message = "Only implemented for pear.local"; }
+  ];
+
+  age.secrets."binary_cache_key" = {
+    file = ../secrets/binary_cache_key.age;
     owner = "harmonia";
     group = "harmonia";
   };
@@ -14,11 +18,11 @@
 
   services.harmonia = {
     enable = true;
-    signKeyPath = config.age.secrets."twelve_binary_cache_key".path;
+    signKeyPath = config.age.secrets."binary_cache_key".path;
   };
 
   nix.settings = {
-    substituters = [ "http://twelve.local:5000" ];
-    trusted-public-keys = [ "twelve.local:5000:l8+oMRAlISC2+5cM2A1OcT2NNWF1PR20uButyQ1R3ng=" ];
+    substituters = [ "http://cache.pear.local" ];
+    trusted-public-keys = [ "cache.pear.local:NdBzAs/wPQnM5PYbpwtyA32z+eDpQ+czQKO+IwvTbkQ=" ];
   };
 }
