@@ -21,8 +21,11 @@
     xournal # draw (including on pdfs)
     wireshark
     xorg.xev
-    kooha # record screen
+    vokoscreen # record screen
     zeal # offline API docs
+    xfce.thunar
+    zotero
+    zathura
     pdfarranger
     pdfgrep
     qpdf

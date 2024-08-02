@@ -31,6 +31,7 @@
     ../../modules/gui.nix
     ../../modules/hi.nix
     ../../modules/monitoring.nix
+    ../../modules/docker.nix
     ../../modules/options/user.nix
   ];
 

@@ -6,14 +6,16 @@
   writeShellApplication,
   neovimUtils,
   vimUtils,
-  nodePackages,
   vimPlugins,
   symlinkJoin,
-  pyright,
   elixir-ls,
-  statix,
   nixd,
   nil,
+  statix,
+  ruff,
+  uiua,
+  gleam,
+  biome,
 }:
 
 let
@@ -24,10 +26,14 @@ let
     # };
 
     runtimeDeps = [
-      pyright
       elixir-ls
       nixd
       nil
+      statix
+      ruff
+      uiua
+      gleam
+      biome
     ];
 
     nvimConfig = neovimUtils.makeNeovimConfig {
@@ -83,6 +89,10 @@ let
         vim-fugitive
         vim-surround
         vim-repeat
+
+        lean-nvim
+        actions-preview-nvim
+        goto-preview
       ];
     };
 
@@ -91,32 +101,7 @@ let
 
 in
 
-    # nvim
-
     symlinkJoin {
       name = "nvim-with-deps";
-
-      # https://ertt.ca/blog/2022/01-12-nix-symlinkJoin-nodePackages/
-      # https://discourse.nixos.org/t/symlinkjoin-and-nodepackages/34542
-      postBuild = ''
-        for f in $out/lib/node_modules/.bin/*; do
-          path="$(readlink --canonicalize-missing "$f")"
-          ln -s "$path" "$out/bin/$(nasename $f)"
-        done
-      '';
-
-      paths = [
-
-        (  writeShellApplication {
-          name = "pyright-langserver";
-          runtimeInputs = [ pyright ];
-          text = "pyright-langserver";
-        } )
-
-        nvim
-        pyright
-        nodePackages.pyright
-        nixd
-        nil
-      ];
+      paths = [ nvim ] ++ runtimeDeps;
     }

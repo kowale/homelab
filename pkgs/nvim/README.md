@@ -25,4 +25,5 @@ This is my personal Neovim configuration.
 - Only run `cmp-rg` in Git repos
   to avoid slowing down in e.g. `~`
 - Keep visual selection after indent (e.g. >>)
+- Always close toggleterm on escape
 

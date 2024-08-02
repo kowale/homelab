@@ -22,7 +22,7 @@
     iotop
     lm_sensors
     lsof
-    qrcp
+    qrcp # send/receive files with qr codes
     ranger
     tmux
     pciutils
@@ -41,5 +41,6 @@
     pmacct
     dogdns
     nethogs
+    pcl # point cloud utils
   ];
 }

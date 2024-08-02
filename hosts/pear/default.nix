@@ -107,15 +107,6 @@
     MaxFileSec=5day
   '';
 
-  # virtualisation.docker = {
-  #     enable = true;
-  #     enableOnBoot = true;
-  #     enableNvidia = true;
-  # };
-
-  # https://github.com/suvash/nixos-nvidia-cuda-python-docker-compose
-  # systemd.enableUnifiedCgroupHierarchy = false;
-
   environment.systemPackages = with pkgs; [
     # linuxPackages.nvidia_x11
     # libGLU

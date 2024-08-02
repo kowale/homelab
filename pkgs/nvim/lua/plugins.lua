@@ -146,9 +146,17 @@ require('gitsigns').setup {
 -- Terminal
 require("toggleterm").setup {
   open_mapping = "<c-t>",
+  insert_mappings = true,
+  terminal_mappings = true,
   direction = "horizontal",
-  shade_terminals = true
+  shade_terminals = false,
 }
+vim.keymap.set("v", "t", function()
+    require("toggleterm").send_lines_to_terminal("visual_lines", true, { args = vim.v.count })
+end)
+vim.keymap.set("n", "tt", function()
+    require("toggleterm").send_lines_to_terminal("single_line", true, { args = vim.v.count })
+end)
 
 -- Trouble
 require("trouble").setup {
@@ -180,30 +188,41 @@ vim.keymap.set("n", "s", function ()
   require('leap').leap { target_windows = { current_window } }
 end)
 
--- Language server protocol (LSP)
--- From https://github.com/neovim/nvim-lspconfig/blob/master/doc/server_configurations.md
--- TODO: consider writing these myself
+-- LSP configs
+-- <https://github.com/neovim/nvim-lspconfig/blob/master/doc/server_configurations.md>
 
 -- Python
-require'lspconfig'.pyright.setup {
+
+require'lspconfig'.ruff.setup {}
+-- require'lspconfig'.pyright.setup {
     -- analysis = {
     --     autoSearchPaths = true,
     --     useLibraryCodeForTypes = true,
     -- }
-}
-
--- Elixir
--- require'lspconfig'.elixirls.setup {
---     cmd = { "elixir-ls" }
 -- }
 
 -- Nix
 -- require'lspconfig'.statix.setup {}
 require'lspconfig'.nixd.setup {}
 require'lspconfig'.nil_ls.setup {}
+require'lspconfig'.statix.setup {}
+
+-- Elixir
+-- require'lspconfig'.elixirls.setup {
+--     cmd = { "elixir-ls" }
+-- }
 
 -- Lua
 -- require'lspconfig'.lua_ls.setup {}
+
+-- JS
+require'lspconfig'.biome.setup{}
+
+-- Uiua
+require'lspconfig'.uiua.setup{}
+
+-- Gleam
+require'lspconfig'.gleam.setup{}
 
 -- Writing
 -- TODO: try textlsp, vale-ls, prosemd-lsp
@@ -212,18 +231,15 @@ require'lspconfig'.nil_ls.setup {}
 
 -- Completions
 local cmp = require'cmp'
-
 local select_opts = { behavior = cmp.SelectBehavior.Select }
-
 cmp.setup {
-
   sources = {
     { name = 'nvim_lsp', keyword_length = 3 },
     { name = 'buffer', keyword_length = 3 },
     { name = 'path', keyword_length = 2 },
-    { name = 'rg', keyword_length = 3 },
-    { name = 'calc', keyword_length = 3 },
     { name = 'git', keyword_length = 3 },
+    -- { name = 'rg', keyword_length = 3 },
+    -- { name = 'calc', keyword_length = 3 },
   },
 
   formatting = {
@@ -233,9 +249,9 @@ cmp.setup {
         nvim_lsp = 'L',
         buffer = 'B',
         path = 'P',
-        rg = 'R',
-        calc = 'C',
         git = 'G',
+        -- rg = 'R',
+        -- calc = 'C',
       })[entry.source.name]
       return item
     end
@@ -283,4 +299,19 @@ vim.diagnostic.config({
     prefix = '',
   },
 })
+
+
+-- Lean
+require('lean').setup {
+    mappings = true
+}
+
+-- Actions preview
+require("actions-preview").setup {}
+vim.keymap.set({ "v", "n" }, "gf", require("actions-preview").code_actions)
+
+-- Goto preview
+require('goto-preview').setup {
+    default_mappings = true
+}
 
