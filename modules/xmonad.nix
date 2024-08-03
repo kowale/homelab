@@ -175,29 +175,6 @@
 
   services.displayManager = {
     defaultSession = "none+xmonad";
-    lightdm = {
-      enable = true;
-      background = "#000000";
-      # greeter.enable = false;
-      # clock-format = "%D";
-      # indicators = [ "~host" ];
-      greeters.enso = {
-        enable = true;
-        blur = false;
-        # theme = {
-        #   name = "Dracula";
-        #   package = pkgs.dracula-theme;
-        # };
-        # iconTheme = {
-        #   name = "ePapirus";
-        #   package = pkgs.papirus-icon-theme;
-        # };
-        # cursorTheme = {
-        #   name = "Vanilla-DMZ";
-        #   package = pkgs.vanilla-dmz;
-        # };
-      };
-    };
     autoLogin = {
       enable = true;
       user = "kon";
@@ -207,6 +184,32 @@
   services.xserver = {
     enable = true;
     xkb.layout = "us";
+
+    displayManager = {
+      lightdm = {
+        enable = true;
+        background = "#000000";
+        # greeter.enable = false;
+        # clock-format = "%D";
+        # indicators = [ "~host" ];
+        greeters.enso = {
+          enable = true;
+          blur = false;
+          # theme = {
+          #   name = "Dracula";
+          #   package = pkgs.dracula-theme;
+          # };
+          # iconTheme = {
+          #   name = "ePapirus";
+          #   package = pkgs.papirus-icon-theme;
+          # };
+          # cursorTheme = {
+          #   name = "Vanilla-DMZ";
+          #   package = pkgs.vanilla-dmz;
+          # };
+        };
+      };
+    };
 
     xautolock = {
       enable = true;
