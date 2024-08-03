@@ -19,6 +19,7 @@
     ../../modules/cli.nix
     ../../modules/hi.nix
     ../../modules/monitoring.nix
+    ../../modules/harmonia.nix
     ../../modules/options/user.nix
   ];
 
@@ -114,6 +115,14 @@
     # cudaPackages_12_2.cudatoolkit
     # cudaPackages.cudnn
   ];
+
+  nixpkgs.config.cudaSupport = true;
+
+  services.ollama = {
+    enable = true;
+    acceleration = "cuda";
+  };
+
 
 }
 

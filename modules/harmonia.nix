@@ -14,10 +14,14 @@
     group = "harmonia";
   };
 
-  networking.firewall.allowedTCPPorts = [ 5000 ];
+  networking.firewall.allowedTCPPorts = [ 5000 443 80 ];
 
   services.harmonia = {
     enable = true;
+    settings = {
+      priority = 20;
+      bind = "[::1]:5000";
+    };
     signKeyPath = config.age.secrets."binary_cache_key".path;
   };
 
@@ -25,4 +29,17 @@
     substituters = [ "http://cache.pear.local" ];
     trusted-public-keys = [ "cache.pear.local:NdBzAs/wPQnM5PYbpwtyA32z+eDpQ+czQKO+IwvTbkQ=" ];
   };
+
+  services.caddy = {
+    enable = true;
+    virtualHosts."http://cache.pear.local".extraConfig = ''
+      encode zstd gzip {
+        match {
+          header Content-Type application/x-nix-archive
+        }
+      }
+      reverse_proxy ${config.services.harmonia.settings.bind}
+    '';
+  };
+
 }

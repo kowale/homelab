@@ -223,7 +223,7 @@ in {
     settings = {
       server = {
         domain = "grafana.${hostName}.local";
-        http_addr = "127.0.0.1";
+        http_addr = "0.0.0.0";
         http_port = 3333;
       };
       "auth.anonymous" = {
@@ -275,6 +275,7 @@ in {
 
   networking.extraHosts = ''
     127.0.0.1 ${grafana.domain} prometheus.${hostName}.local webhook.${hostName}.local
+    0.0.0.0 ${grafana.domain} prometheus.${hostName}.local webhook.${hostName}.local
   '';
 
   services.caddy = {
