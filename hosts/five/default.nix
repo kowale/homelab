@@ -86,30 +86,78 @@
   #     locations."/".proxyPass = "http://127.0.0.1:8000";
   #   };
 
+  environment.systemPackages = with pkgs; [
+    nss.tools
+  ];
+
   services.caddy = {
     enable = true;
     virtualHosts = {
 
-      "spar.five.local".extraConfig = ''
-        encode gzip
+      "http://five.local".extraConfig = ''
+        respond respond "meta"
+      '';
+
+      "five.five.local".extraConfig = ''
+        tls /tmp/cert.pem /tmp/key.pem
+        respond "5"
+      '';
+
+      "ok.five.local".extraConfig = ''
         tls internal
+        respond "OK"
+      '';
+
+      "spar.five.local".extraConfig = ''
+        tls internal
+        encode gzip
         reverse_proxy http://127.0.0.1:8000
       '';
 
       "docs.five.local".extraConfig = ''
-        encode gzip
         tls internal
-        file_server
         root * ${self.outputs.packages.x86_64-linux.docs}
+        encode gzip
+        file_server
       '';
 
     };
+  };
+
+  # security.pki.certificateFiles = [
+  #   "${pkgs.cacert}/etc/ssl/certs/ca-bundle.crt"
+  # ];
+
+  security.pki.certificates = [
+    ''
+    -----BEGIN CERTIFICATE-----
+    MIIBozCCAUmgAwIBAgIQe3Hk7zDQOXUssf2ShXZcmjAKBggqhkjOPQQDAjAwMS4w
+    LAYDVQQDEyVDYWRkeSBMb2NhbCBBdXRob3JpdHkgLSAyMDI0IEVDQyBSb290MB4X
+    DTI0MDUyMTE3NTczM1oXDTM0MDMzMDE3NTczM1owMDEuMCwGA1UEAxMlQ2FkZHkg
+    TG9jYWwgQXV0aG9yaXR5IC0gMjAyNCBFQ0MgUm9vdDBZMBMGByqGSM49AgEGCCqG
+    SM49AwEHA0IABK1hxOW9/mADwKaDgEUH2U1WE4LaLpgUkvTYyRHsjx9EVvbZ86n7
+    hQz8TFwiQprDCdLwqNFHsL1/tU+DWeqA1OejRTBDMA4GA1UdDwEB/wQEAwIBBjAS
+    BgNVHRMBAf8ECDAGAQH/AgEBMB0GA1UdDgQWBBTapL3LwSWrMzg8SYIERkyQFs7v
+    wjAKBggqhkjOPQQDAgNIADBFAiEA8vLPReCK/WV7R6XL2A3LX5PJeFdAimcyvntX
+    9s0+Wg4CIFPRGEHFoAYF2NNvKKoExMXnhumMfyhHFAEwOp8bHWVy
+    -----END CERTIFICATE-----
+    ''
+  ];
+
+  nix.settings = {
+    substituters = [ "http://cache.pear.local" ];
+    trusted-public-keys = [ "cache.pear.local:NdBzAs/wPQnM5PYbpwtyA32z+eDpQ+czQKO+IwvTbkQ=" ];
   };
 
   networking.firewall.allowedTCPPorts = [ 80 443 8000 ];
 
   networking.extraHosts = ''
     127.0.0.1 docs.five.local spar.five.local
+    127.0.0.1 ok.five.local five.five.local
+    192.168.0.42 cache.pear.local
+    192.168.0.42 grafana.pear.local
+    192.168.0.42 prometheus.pear.local
+    192.168.0.42 webhook.pear.local
   '';
 
   # https://paperless.blog/systemd-services-and-timers-in-nixos
@@ -131,5 +179,9 @@
     # systemd-analyze calendar minutely
     startAt = "*:0/15";
   };
+
+  # security.pki.certificateFiles = [
+
+  # ];
 }
 

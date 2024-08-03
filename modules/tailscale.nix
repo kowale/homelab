@@ -16,6 +16,6 @@
     dnssec = "false";
   };
 
-  systemd.services.tailscaled.after = [ "network-online.target" "systemd-resolved.service" ];
+  #systemd.services.tailscaled.after = [ "network-online.target" "systemd-resolved.service" ];
 }
 

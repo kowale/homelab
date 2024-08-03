@@ -161,21 +161,52 @@
 
   programs.dconf.enable = true;
 
-  services.xserver = {
+  services.libinput = {
     enable = true;
-    layout = "us";
+    touchpad = {
+      tapping = false;
+      disableWhileTyping = true;
+      accelProfile = "adaptive";
+      # clickMethod = "buttonareas";
+      # scrollMethod = "edge";
+      # naturalScrolling = false;
+    };
+  };
 
-    libinput = {
+  services.displayManager = {
+    defaultSession = "none+xmonad";
+    lightdm = {
       enable = true;
-      touchpad = {
-        tapping = false;
-        disableWhileTyping = true;
-        accelProfile = "adaptive";
-        # clickMethod = "buttonareas";
-        # scrollMethod = "edge";
-        # naturalScrolling = false;
+      background = "#000000";
+      # greeter.enable = false;
+      # clock-format = "%D";
+      # indicators = [ "~host" ];
+      greeters.enso = {
+        enable = true;
+        blur = false;
+        # theme = {
+        #   name = "Dracula";
+        #   package = pkgs.dracula-theme;
+        # };
+        # iconTheme = {
+        #   name = "ePapirus";
+        #   package = pkgs.papirus-icon-theme;
+        # };
+        # cursorTheme = {
+        #   name = "Vanilla-DMZ";
+        #   package = pkgs.vanilla-dmz;
+        # };
       };
     };
+    autoLogin = {
+      enable = true;
+      user = "kon";
+    };
+  };
+
+  services.xserver = {
+    enable = true;
+    xkb.layout = "us";
 
     xautolock = {
       enable = true;
@@ -196,37 +227,6 @@
     #  Option "SuspendTime" "0"
     #  Option "OffTime" "0"
     # '';
-
-    displayManager = {
-      defaultSession = "none+xmonad";
-      lightdm = {
-        enable = true;
-        background = "#000000";
-        # greeter.enable = false;
-        # clock-format = "%D";
-        # indicators = [ "~host" ];
-        greeters.enso = {
-          enable = true;
-          blur = false;
-          # theme = {
-          #   name = "Dracula";
-          #   package = pkgs.dracula-theme;
-          # };
-          # iconTheme = {
-          #   name = "ePapirus";
-          #   package = pkgs.papirus-icon-theme;
-          # };
-          # cursorTheme = {
-          #   name = "Vanilla-DMZ";
-          #   package = pkgs.vanilla-dmz;
-          # };
-        };
-      };
-      autoLogin = {
-        enable = true;
-        user = "kon";
-      };
-    };
 
     desktopManager.xterm.enable = false;
 
