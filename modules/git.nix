@@ -10,6 +10,7 @@ let
       init.defaultBranch = "main";
       log.date = "iso";
       pull.rebase = true;
+      commit.verbose = true;
       push.autoSetupRemote = true;
       rebase.autosquash = true;
       rebase.autostash = true;

@@ -187,7 +187,7 @@
 
   security.pki.certificates = [
 
-    # Caddy
+    # Caddy five
     ''
     -----BEGIN CERTIFICATE-----
     MIIBozCCAUmgAwIBAgIQe3Hk7zDQOXUssf2ShXZcmjAKBggqhkjOPQQDAjAwMS4w
@@ -199,6 +199,21 @@
     BgNVHRMBAf8ECDAGAQH/AgEBMB0GA1UdDgQWBBTapL3LwSWrMzg8SYIERkyQFs7v
     wjAKBggqhkjOPQQDAgNIADBFAiEA8vLPReCK/WV7R6XL2A3LX5PJeFdAimcyvntX
     9s0+Wg4CIFPRGEHFoAYF2NNvKKoExMXnhumMfyhHFAEwOp8bHWVy
+    -----END CERTIFICATE-----
+    ''
+
+    # Caddy pear
+    ''
+    -----BEGIN CERTIFICATE-----
+    MIIBojCCAUmgAwIBAgIQDT3QKIFlGWYufkhhke6EOjAKBggqhkjOPQQDAjAwMS4w
+    LAYDVQQDEyVDYWRkeSBMb2NhbCBBdXRob3JpdHkgLSAyMDIzIEVDQyBSb290MB4X
+    DTIzMTAxMTE5NTA0NFoXDTMzMDgxOTE5NTA0NFowMDEuMCwGA1UEAxMlQ2FkZHkg
+    TG9jYWwgQXV0aG9yaXR5IC0gMjAyMyBFQ0MgUm9vdDBZMBMGByqGSM49AgEGCCqG
+    SM49AwEHA0IABFB/DMlaGLTqTGa6qGZr4U+rHg+j4jXzUkDChGZpY+soPGU8grU3
+    bsQ5xPfwO2p6aJx2tkRV6qXwQMIftvnl3M6jRTBDMA4GA1UdDwEB/wQEAwIBBjAS
+    BgNVHRMBAf8ECDAGAQH/AgEBMB0GA1UdDgQWBBSp7OvqGNig/dzvLkIb0e++m+vr
+    6zAKBggqhkjOPQQDAgNHADBEAiBp9VoNSi2+mFhrGpZbYirapfwl+vExP4JvKgpF
+    YSYCLgIge0hmE2sXLGY44Cma/fDQNkJw+iXg2txnrguXLky+PhQ=
     -----END CERTIFICATE-----
     ''
 
@@ -219,10 +234,9 @@
   networking.extraHosts = ''
     127.0.0.1 docs.five.local spar.five.local
     127.0.0.1 ok.five.local five.five.local
-    192.168.0.42 cache.pear.local
-    192.168.0.42 grafana.pear.local
-    192.168.0.42 prometheus.pear.local
-    192.168.0.42 webhook.pear.local
+    192.168.0.42 cache.pear.local docs.pear.local ok.pear.local pear.local
+    192.168.0.42 grafana.pear.local prometheus.pear.local webhook.pear.local
+    192.168.0.42 ollama.pear.local
   '';
 
   # https://paperless.blog/systemd-services-and-timers-in-nixos
