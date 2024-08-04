@@ -54,14 +54,19 @@
         root * ${self.outputs.packages.x86_64-linux.docs}
       '';
 
+      "http://ollama.pear.local".extraConfig = ''
+        encode gzip
+        reverse_proxy http://127.0.0.1:11111
+      '';
+
     };
   };
 
-  networking.firewall.allowedTCPPorts = [ 80 443 8000 ];
+  networking.firewall.allowedTCPPorts = [ 80 443 11111 ];
 
   networking.hostName = "pear";
   networking.extraHosts = ''
-    127.0.0.1 docs.pear.local
+    127.0.0.1 docs.pear.local pear.local ok.pear.local ollama.pear.local cache.pear.local
   '';
 
   services.logrotate.enable = true;
@@ -73,7 +78,8 @@
   };
 
   boot = {
-    kernelPackages = pkgs.linuxPackages_latest;
+    # TODO: switch to latest when nvidia catches up
+    kernelPackages = pkgs.linuxPackages_6_9;
     extraModulePackages = [ config.boot.kernelPackages.nvidia_x11 ];
     extraModprobeConfig = "options nvidia-drm modeset=1";
     initrd.kernelModules = [
@@ -100,7 +106,6 @@
     package = config.boot.kernelPackages.nvidiaPackages.stable;
   };
 
-
   services.xserver.videoDrivers = [ "nvidia" ];
 
   services.journald.extraConfig = ''
@@ -114,15 +119,26 @@
     # libGL
     # cudaPackages_12_2.cudatoolkit
     # cudaPackages.cudnn
+    ollama
   ];
 
-  nixpkgs.config.cudaSupport = true;
+  # nixpkgs.config.cudaSupport = true;
 
   services.ollama = {
     enable = true;
     acceleration = "cuda";
+    listenAddress = "0.0.0.0:11111";
   };
 
+  # services.private-gpt = {
+  #   enable = true;
+  #   stateDir = "/var/lib/private-gpt";
+  #   settings = {
+  #     llm.mode = "ollama";
+  #     ollama.model = "llama3.1";
+  #     api_base = "http://127.0.0.1:11111";
+  #   };
+  # };
 
 }
 
