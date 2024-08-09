@@ -19,7 +19,7 @@
         settings = {
             # https://jackson.dev/post/nix-reasonable-defaults/
             trusted-users = [ "@wheel" ];
-            system-features = [ "kvm" "big-parallel" ];
+            system-features = [ "kvm" "big-parallel" "nixos-test" ];
             connect-timeout = 5;
             log-lines = 25;
             max-jobs = "auto";

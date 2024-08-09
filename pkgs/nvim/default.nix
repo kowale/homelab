@@ -63,6 +63,7 @@ let
         nvim-treesitter-refactor
         nvim-treesitter-textobjects
         nvim-treesitter-textsubjects
+        nvim-cmp
 
         leap-nvim
         plenary-nvim
@@ -70,10 +71,13 @@ let
         gitsigns-nvim
         toggleterm-nvim
         telescope-nvim
+        lean-nvim
+        actions-preview-nvim
+        ollama-nvim
 
         harpoon
+        goto-preview
 
-        nvim-cmp
         cmp-path
         cmp-buffer
         cmp-nvim-lsp
@@ -90,9 +94,6 @@ let
         vim-surround
         vim-repeat
 
-        lean-nvim
-        actions-preview-nvim
-        goto-preview
       ];
     };
 

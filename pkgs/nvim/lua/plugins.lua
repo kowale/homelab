@@ -315,3 +315,11 @@ require('goto-preview').setup {
     default_mappings = true
 }
 
+-- Ollama
+require("ollama").setup {
+    model = "llama3.1",
+    url = "http://ollama.pear.local",
+}
+vim.keymap.set({ "v", "n" }, "op", ":<c-u>lua require('ollama').prompt()<cr>")
+vim.keymap.set({ "v", "n" }, "og", ":<c-u>lua require('ollama').prompt('Generate_Code')<cr>")
+
