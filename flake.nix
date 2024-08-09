@@ -52,9 +52,6 @@
 
         # checks.${system} = {
           # eval-self = pkgs.writeText "eval-self" (builtins.deepSeq self "OK");
-          # reuse-lint = pkgs.runCommand "reuse-lint" {
-          #   nativeBuildInputs = [ pkgs.reuse ];
-          # } ''reuse --root ${./.} lint > "$out"'';
         # };
 
         nixosConfigurations = {
