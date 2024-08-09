@@ -21,6 +21,7 @@
     ../../modules/monitoring.nix
     ../../modules/harmonia.nix
     ../../modules/options/user.nix
+    #./passthrough.nix
   ];
 
   user.name = "kon";
@@ -114,15 +115,12 @@
   '';
 
   environment.systemPackages = with pkgs; [
-    # linuxPackages.nvidia_x11
-    # libGLU
-    # libGL
-    # cudaPackages_12_2.cudatoolkit
-    # cudaPackages.cudnn
-    ollama
+    libGLU
+    libGL
+    cudaPackages_11_4.nsight_systems
   ];
 
-  # nixpkgs.config.cudaSupport = true;
+  nixpkgs.config.cudaSupport = true;
 
   services.ollama = {
     enable = true;
@@ -130,16 +128,40 @@
     listenAddress = "0.0.0.0:11111";
   };
 
-  # services.private-gpt = {
-  #   enable = true;
-  #   stateDir = "/var/lib/private-gpt";
-  #   settings = {
-  #     llm.mode = "ollama";
-  #     ollama.model = "llama3.1";
-  #     api_base = "http://127.0.0.1:11111";
-  #   };
-  # };
+  services.sunshine = {
+    enable = true;
+    autoStart = true;
+    capSysAdmin = true;
+    openFirewall = true;
+    settings = {
+      channels = 2;
+      encoder = "nvenc";
+      #capture = "kms";
+      #output_name = 0;
+    };
+    applications.apps = [
+      { name = "alacritty"; cmd = "${pkgs.alacritty}/bin/alacritty"; working-dir = "/tmp"; }
+      { name = "xterm"; cmd = "${pkgs.xterm}/bin/xterm"; working-dir = "/tmp"; }
+      { name = "chromium"; cmd = "${pkgs.chromium}/bin/chromium"; working-dir = "/tmp"; }
+    ];
+  };
 
+  services.xserver = {
+    enable = true;
+    dpi = 80;
+    exportConfiguration = true;
+    resolutions = [
+      { x = 1920; y = 1080; }
+    ];
+    virtualScreen =
+      { x = 1920; y = 1080; };
+  };
+  services.xserver.desktopManager.xfce.enable = true;
+  services.xserver.displayManager.lightdm.enable = true;
+  services.displayManager.autoLogin = {
+    enable = true;
+    user = "kon";
+  };
 }
 
 
