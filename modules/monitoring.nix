@@ -109,6 +109,11 @@ in {
     port = 9001;
     listenAddress = "127.0.0.1";
 
+    pushgateway = {
+      enable = true;
+      web.listen-address = "127.0.0.1:9091";
+    };
+
     rules = [
       ""
     ];
@@ -137,16 +142,26 @@ in {
         job_name = "node";
         static_configs = [{
           targets = [
-            "localhost:${toString config.services.prometheus.exporters.node.port}"
+            "127.0.0.1:${toString config.services.prometheus.exporters.node.port}"
           ];
         }];
       }
 
       {
-        job_name = "process";
+        job_name = "pushgateway";
         static_configs = [{
           targets = [
-            "localhost:${toString config.services.prometheus.exporters.process.port}"
+            "${toString config.services.prometheus.pushgateway.web.listen-address}"
+          ];
+        }];
+      }
+
+
+      {
+        job_name = "mtr";
+        static_configs = [{
+          targets = [
+            "127.0.0.1:${toString config.services.mtr-exporter.port}"
           ];
         }];
       }
@@ -160,61 +175,114 @@ in {
         }];
       }
 
-      {
-        job_name = "systemd";
-        static_configs = [{
-          targets = [
-            "localhost:${toString config.services.prometheus.exporters.systemd.port}"
-          ];
-        }];
-      }
+      # {
+      #   job_name = "process";
+      #   static_configs = [{
+      #     targets = [
+      #       "localhost:${toString config.services.prometheus.exporters.process.port}"
+      #     ];
+      #   }];
+      # }
+
+      # {
+      #   job_name = "scaphandre";
+      #   static_configs = [{
+      #     targets = [
+      #       "localhost:${toString config.services.prometheus.exporters.scaphandre.port}"
+      #     ];
+      #   }];
+      # }
+
+      # {
+      #   job_name = "script";
+      #   static_configs = [{
+      #     targets = [
+      #       "localhost:${toString config.services.prometheus.exporters.script.port}"
+      #     ];
+      #   }];
+      # }
+
+      # {
+      #   job_name = "systemd";
+      #   static_configs = [{
+      #     targets = [
+      #       "localhost:${toString config.services.prometheus.exporters.systemd.port}"
+      #     ];
+      #   }];
+      # }
 
     ];
   };
 
-  # node
-  # systemd
-  # process
-  # restic
-  # script, json, blackbox
-  # smartctl (ssd)
-  # scaphandre (energy)
-  # wireguard
-  # ping, smokeping
-  # rtl_433 (for rtl-sdr)
-  # mtr (services.mtr-exporter)
   # apcupsd (ups)
+  # scaphandre (energy)
+  # restic?
+  # wireguard?
+  # script, json?
+  # systemd + process = ?
+  # rtl_433 (for rtl-sdr)
   # collectd (many weird things)
-  # zfs (is there ext4?)
+  # https://github.com/utkuozdemir/nvidia_gpu_exporter/tree/master
+
   services.prometheus.exporters.node = {
     enable = true;
     port = 9002;
+    disabledCollectors = [
+      "bcache"
+      "btrfs"
+      "dmi"
+      "infiniband"
+      "xfs"
+      "zfs"
+    ];
     enabledCollectors = [
-      "cpu"
-      "filesystem"
-      "loadavg"
-      "systemd"
+      "network_route"
+      "cgroups"
     ];
   };
-  # ntp
-  # nvidia dcgm
-  # ripe atlas
-  # ebpf
 
-  services.prometheus.exporters.systemd.enable = true;
-  services.prometheus.exporters.process.enable = true;
+  services.smartd = {
+    enable = true;
+    autodetect = true;
+  };
 
-  services.prometheus.exporters.smartctl.enable = true;
-  services.udev.extraRules = ''
-    SUBSYSTEM=="nvme", KERNEL=="nvme[0-9]*", GROUP="disk"
-  '';
+  services.prometheus.exporters.smartctl = {
+    enable = true;
+    port = 9003;
+    maxInterval = "20s";
+  };
+  services.udev.extraRules = ''SUBSYSTEM=="nvme", KERNEL=="nvme[0-9]*", GROUP="disk"'';
+
+  services.mtr-exporter = {
+    enable = true;
+    port = 9004;
+    jobs = [
+      { name = "kszk-eu"; address = "kszk.eu"; flags = [ "--tcp" "--port=80" ]; }
+      { name = "github-com"; address = "github.com"; flags = [ "--tcp" "--port=80" ]; }
+      { name = "five-local"; address = "five.local"; flags = [ "--tcp" "--port=80" ]; }
+    ];
+  };
+
+  # services.prometheus.exporters.blackbox = {
+  #   enable = true;
+  #   port = 9005;
+  # };
+
+  # services.prometheus.exporters.script = {
+  #   enable = true;
+  #   settings.scripts = [
+  #     { name = "hi"; script = "echo hello"; }
+  #   ];
+  # };
+  # services.prometheus.exporters.systemd.enable = true;
+  # services.prometheus.exporters.process.enable = true;
+  # services.prometheus.exporters.scaphandre.enable = true;
 
   services.grafana = {
     enable = true;
 
     settings = {
       server = {
-        #domain = "grafana.${hostName}.local";
         http_addr = "127.0.0.1";
         http_port = 3333;
       };
@@ -239,12 +307,73 @@ in {
           type = "prometheus";
           url = "http://127.0.0.1:${toString config.services.prometheus.port}";
         }
+
+        {
+          name = "Loki";
+          uid = "efgh";
+          isDefault = false;
+          type = "loki";
+
+          url = "http://127.0.0.1:${toString config.services.loki.configuration.server.http_listen_port}";
+        }
+
+
       ];
       dashboards.settings.providers = [
         { options.path = "/etc/dashboards"; }
       ];
     };
   };
+
+  # Loki
+  services.loki = {
+    enable = true;
+    extraFlags = [ "--server.http-listen-port=3101" ];
+    configuration = {
+      auth_enabled = false;
+      server = {
+        http_listen_port = 3101;
+        grpc_listen_port = 0;
+      };
+      ingester.lifecycler = {
+        address = "127.0.0.1";
+        ring = { kvstore.store = "inmemory"; replication_factor = 1; };
+      };
+
+      schema_config.configs = [
+        { from = "2024-08-08"; store = "boltdb"; object_store = "filesystem"; schema = "v9"; index = { prefix = "index_"; period = "168h"; }; }
+      ];
+
+      storage_config = {
+        boltdb.directory = "${config.services.loki.dataDir}/index";
+        filesystem.directory = "${config.services.loki.dataDir}/chunks";
+      };
+
+      limits_config = {
+        reject_old_samples = true;
+        reject_old_samples_max_age = "168h";
+        allow_structured_metadata = false;
+      };
+
+    };
+  };
+
+  # Promtail
+  services.promtail = {
+    enable = true;
+    extraFlags = [ "--server.http-listen-port=3100" ];
+    configuration = {
+      server.http_listen_port = 3100;
+      positions.filename = "/tmp/pos.yaml";
+      clients = [
+        { url = "http://127.0.0.1:${toString config.services.loki.configuration.server.http_listen_port}/loki/api/v1/push"; }
+      ];
+      scrape_configs = [
+        { job_name = "journal"; journal = { max_age = "12h"; path = "/var/log/journal"; labels = { job = "systemd-journal"; host = config.networking.hostName; }; }; }
+      ];
+    };
+  };
+
 
   # Copy ./dashboard/*.json to /etc/dashboards
   environment.etc = with builtins; mapAttrs (
@@ -255,13 +384,16 @@ in {
   ) (readDir ./dashboards);
 
   networking.firewall.allowedTCPPorts = [
-    80 443
+    80
+    443
     config.services.grafana.settings.server.http_port
     config.services.prometheus.port
+    #config.services.prometheus.pushgateway.port
     config.services.prometheus.exporters.node.port
-    config.services.prometheus.exporters.systemd.port
-    config.services.prometheus.exporters.process.port
     config.services.prometheus.exporters.smartctl.port
+    config.services.mtr-exporter.port
+    config.services.loki.configuration.server.http_listen_port
+    config.services.promtail.configuration.server.http_listen_port
     config.services.webhook.port
   ];
 
