@@ -115,9 +115,16 @@
   '';
 
   environment.systemPackages = with pkgs; [
+    cudatoolkit
+    cudaPackages.libcublas
+    cudaPackages.libcufft
+    cudaPackages.libcurand
+    cudaPackages.libcusparse
+    cudaPackages.libcusolver
+    cudaPackages.cuda_nvrtc
+    #cudaPackages.nsight_compute
     libGLU
     libGL
-    cudaPackages_11_4.nsight_systems
   ];
 
   nixpkgs.config.cudaSupport = true;
