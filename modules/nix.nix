@@ -17,6 +17,12 @@
         };
 
         settings = {
+            # cache.nixos.org is built-in and has priority of 40
+            # cache.pear.local is e.g. harmonia and has priority of 20
+            # various caches from cachix should be added with ~30 priority
+            substituters = [ "http://cache.pear.local" ];
+            trusted-public-keys = [ "cache.pear.local:NdBzAs/wPQnM5PYbpwtyA32z+eDpQ+czQKO+IwvTbkQ=" ];
+
             # https://jackson.dev/post/nix-reasonable-defaults/
             trusted-users = [ "@wheel" ];
             system-features = [ "kvm" "big-parallel" "nixos-test" ];
@@ -32,6 +38,7 @@
             auto-optimise-store = true;
             builders-use-substitutes = true;
             experimental-features = "flakes nix-command";
+
         };
 
         sshServe = {
