@@ -94,6 +94,8 @@ let
         vim-surround
         vim-repeat
 
+        neogit
+
       ];
     };
 

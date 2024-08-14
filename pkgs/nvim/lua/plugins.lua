@@ -323,3 +323,7 @@ require("ollama").setup {
 vim.keymap.set({ "v", "n" }, "op", ":<c-u>lua require('ollama').prompt()<cr>")
 vim.keymap.set({ "v", "n" }, "og", ":<c-u>lua require('ollama').prompt('Generate_Code')<cr>")
 
+-- Neogit
+require("neogit").setup {}
+vim.keymap.set({ "n" }, "<c-n>", ":Neogit<cr>")
+
