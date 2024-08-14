@@ -81,6 +81,8 @@
   };
   environment.sessionVariables = { LIBVA_DRIVER_NAME = "iHD"; };
 
+  boot.kernelPackages = pkgs.linuxPackages_latest;
+
   # services.nginx.enable = true;
   # services.nginx.virtualHosts."spar.five.local" = {
   #     locations."/".proxyPass = "http://127.0.0.1:8000";
@@ -250,6 +252,8 @@
     # systemd-analyze calendar minutely
     startAt = "*:0/15";
   };
+
+  services.fwupd.enable = true;
 
 }
 
