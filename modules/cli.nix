@@ -1,4 +1,4 @@
-{ pkgs, ... }:
+{ config, pkgs, ... } @ self:
 
 {
 
@@ -42,5 +42,6 @@
     dogdns
     nethogs
     pcl # point cloud utils
+    (self.inputs.agenix.packages.${config.nixpkgs.system}.agenix)
   ];
 }
