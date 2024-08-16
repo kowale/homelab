@@ -11,5 +11,8 @@ in
     "kon.age".publicKeys = everyone;
     "wireless.age".publicKeys = everyone;
     "homelab.kdbx.tar.age".publicKeys = everyone;
-    "binary_cache_key.age".publicKeys = pear ++ kon; # cache.pear.local:NdBzAs/wPQnM5PYbpwtyA32z+eDpQ+czQKO+IwvTbkQ=
+    "binary_cache_key.age".publicKeys = pear ++ kon;
+    "restic/env.age".publicKeys = everyone;
+    "restic/repo.age".publicKeys = everyone;
+    "restic/password.age".publicKeys = everyone;
   }

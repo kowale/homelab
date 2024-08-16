@@ -32,6 +32,7 @@
     ../../modules/hi.nix
     ../../modules/monitoring.nix
     ../../modules/docker.nix
+    ../../modules/restic.nix
     ../../modules/options/user.nix
   ];
 
