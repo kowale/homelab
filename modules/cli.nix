@@ -43,5 +43,6 @@
     nethogs
     pcl # point cloud utils
     (self.inputs.agenix.packages.${config.nixpkgs.system}.agenix)
+    ikill # interactively kill processes
   ];
 }

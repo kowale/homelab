@@ -30,5 +30,9 @@
     pdfgrep
     qpdf
     signal-desktop
+    obs-studio
+    pavucontrol
+    ffmpeg-full
+    sqlitebrowser
   ];
 }
