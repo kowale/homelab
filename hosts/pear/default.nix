@@ -20,6 +20,7 @@
     ../../modules/hi.nix
     ../../modules/monitoring.nix
     ../../modules/harmonia.nix
+    ../../modules/docker.nix
     ../../modules/options/user.nix
     #./passthrough.nix
   ];
@@ -122,10 +123,12 @@
     cudaPackages.libcusparse
     cudaPackages.libcusolver
     cudaPackages.cuda_nvrtc
-    #cudaPackages.nsight_compute
+    nvidia-container-toolkit
     libGLU
     libGL
   ];
+
+  hardware.nvidia-container-toolkit.enable = true;
 
   nixpkgs.config.cudaSupport = true;
 
