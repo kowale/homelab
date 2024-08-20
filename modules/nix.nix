@@ -20,8 +20,14 @@
             # cache.nixos.org is built-in and has priority of 40
             # cache.pear.local is e.g. harmonia and has priority of 20
             # various caches from cachix should be added with ~30 priority
-            substituters = [ "http://cache.pear.local" ];
-            trusted-public-keys = [ "cache.pear.local:NdBzAs/wPQnM5PYbpwtyA32z+eDpQ+czQKO+IwvTbkQ=" ];
+            substituters = [
+                "http://cache.pear.local"
+                "https://cache.garnix.io"
+            ];
+            trusted-public-keys = [
+                "cache.pear.local:NdBzAs/wPQnM5PYbpwtyA32z+eDpQ+czQKO+IwvTbkQ="
+                "cache.garnix.io:CTFPyKSLcx5RMJKfLo5EEPUObbA78b0YQ2DTCJXqr9g="
+            ];
 
             # https://jackson.dev/post/nix-reasonable-defaults/
             trusted-users = [ "@wheel" ];
