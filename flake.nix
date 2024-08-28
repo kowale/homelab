@@ -16,6 +16,11 @@
             url = "github:kowale/rocs";
             inputs.nixpkgs.follows = "nixpkgs";
         };
+
+        nix-darwin = {
+          url = "github:LnL7/nix-darwin";
+          inputs.nixpkgs.follows = "nixpkgs";
+        };
     };
 
     outputs = { self, nixpkgs, ... } @ inputs:
@@ -56,35 +61,41 @@
 
         nixosConfigurations = {
 
-            twelve = nixpkgs.lib.nixosSystem {
-              system = "x86_64-linux";
-              modules = with inputs; [
-                  hardware.nixosModules.lenovo-thinkpad-t480
-                  agenix.nixosModules.default
-                  ./hosts/twelve
-              ];
-              specialArgs = self;
-            };
-
-            five = nixpkgs.lib.nixosSystem {
-              system = "x86_64-linux";
-              modules = with inputs; [
-                  hardware.nixosModules.lenovo-thinkpad-t14
-                  agenix.nixosModules.default
-                  ./hosts/five
-              ];
-              specialArgs = self;
-            };
-
-            pear = nixpkgs.lib.nixosSystem {
-              system = "x86_64-linux";
-              modules = with inputs; [
-                  agenix.nixosModules.default
-                  ./hosts/pear
-              ];
-              specialArgs = self;
+          twelve = nixpkgs.lib.nixosSystem {
+            system = "x86_64-linux";
+            modules = with inputs; [
+                hardware.nixosModules.lenovo-thinkpad-t480
+                agenix.nixosModules.default
+                ./hosts/twelve
+            ];
+            specialArgs = self;
           };
 
-      };
+          five = nixpkgs.lib.nixosSystem {
+            system = "x86_64-linux";
+            modules = with inputs; [
+                hardware.nixosModules.lenovo-thinkpad-t14
+                agenix.nixosModules.default
+                ./hosts/five
+            ];
+            specialArgs = self;
+          };
+
+          pear = nixpkgs.lib.nixosSystem {
+            system = "x86_64-linux";
+            modules = with inputs; [
+                agenix.nixosModules.default
+                ./hosts/pear
+            ];
+            specialArgs = self;
+          };
+        };
+
+        darwinConfigurations = {
+          moth = inputs.nix-darwin.lib.darwinSystem {
+            modules = [ ./hosts/moth ];
+            specialArgs = self;
+          };
+        };
     };
 }
