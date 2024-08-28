@@ -93,7 +93,10 @@
 
         darwinConfigurations = {
           moth = inputs.nix-darwin.lib.darwinSystem {
-            modules = [ ./hosts/moth ];
+            modules = with inputs; [
+	      agenix.darwinModules.default
+	      ./hosts/moth
+	    ];
             specialArgs = self;
           };
         };

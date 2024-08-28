@@ -14,7 +14,8 @@
     git
     curl
     alacritty
-    darwin-zsh-completions
+    keepassxc
+
     utm # virtual machines
     m-cli # macos management
     iina # video player
@@ -24,6 +25,28 @@
     # bartender # menu bar
     # rectangle # window manager
   ];
+
+  homebrew = {
+    enable = true;
+    onActivation.cleanup = "uninstall";
+
+    taps = [];
+    brews = [ "cowsay" ];
+    casks = [];
+  };
+
+
+  security.pam.enableSudoTouchIdAuth = true;
+
+  system.stateVersion = 4;
+
+  fonts.packages = [
+    pkgs.monaspace
+  ];
+
+
+  networking.hostName = "moth";
+  networking.computerName = "moth";
 
   services.tailscale.enable = true;
 
@@ -47,7 +70,7 @@
 
   system.configurationRevision = self.rev or self.dirtyRev or null;
 
-  nixpkgs.hostplatform = "x86_64-darwin";
+  nixpkgs.hostPlatform = "aarch64-darwin";
   nixpkgs.config.allowUnfree = true;
 
   system.keyboard = {
@@ -77,8 +100,12 @@
     NSGlobalDomain = {
       AppleKeyboardUIMode = 3;
       ApplePressAndHoldEnabled = false;
-      InitialKeyRepeat = 10;
-      KeyRepeat = 1;
+
+      "com.apple.swipescrolldirection" = false;
+      "com.apple.mouse.tapBehavior" = 1;
+      "com.apple.sound.beep.volume" = 0.0;
+      "com.apple.sound.beep.feedback" = 0;
+
       NSAutomaticCapitalizationEnabled = false;
       NSAutomaticInlinePredictionEnabled = false;
       NSAutomaticDashSubstitutionEnabled = false;
@@ -89,6 +116,7 @@
       NSNavPanelExpandedStateForSaveMode2 = true;
       _HIHideMenuBar = true;
     };
+
   };
 
 
