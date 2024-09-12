@@ -18,7 +18,8 @@
     networks = {
       "SKYBEADJ".psk = "@SKYBEADJ@";
       "SKYKDEKR".psk = "@SKYKDEKR@";
-      "VOO-GRBLGF7".psk = "@VOO-GRBLGF7@";
+      "VOO-GRBLGF7".psk = "@VOO_GRBLGF7@";
+      "BT-2WCM2F".psk = "@BT_2WCM2F@";
     };
   };
 }
