@@ -37,12 +37,6 @@
     rofi
   ];
 
-  # Hide cursor after 10s
-  # services.unclutter = {
-  #   enable = true;
-  #   timeout = 10;
-  # };
-
   # Run `xset q` to see current state
   # Duplicated in serverFlagsSection
   environment.etc."X11/xinit/xinitrc".text = ''
@@ -152,7 +146,7 @@
     Option "TearFree" "true"
     '';
 
-  services.greenclip.enable = true;
+  # services.greenclip.enable = true;
 
   services.dbus = {
     enable = true;
