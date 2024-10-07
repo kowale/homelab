@@ -9,7 +9,7 @@ let
 in {
 
   environment.systemPackages = with pkgs; [
-    # docker
+    docker
     # nvidia-docker
   ];
 
