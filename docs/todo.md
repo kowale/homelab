@@ -1,13 +1,9 @@
 # Todo
 
-## For sure
-
 - git-hooks.nix
 - disko
-- restic
-- laptop stuff (cpu/power, video calls, NixOS wakeups)
 
-## Maybe
+## Backlog
 
 - nix-index
 - nix-fast-build
@@ -17,3 +13,4 @@
 - srvos
 - nixdoc
 - dns.nix
+
