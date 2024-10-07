@@ -17,7 +17,7 @@
     enable = true;
     languagePacks = [ "en-US" ];
 
-    # HM :(
+    # Profiles only available in HM :(
     # For now move manually to .mozilla/firefox/7y2r4ss.default/chrome/userChrome.css
     #profiles.default = {
     #  name = "Default";

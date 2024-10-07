@@ -12,12 +12,9 @@ in
     execWheelOnly = true;
   };
 
-  # users.mutableUsers = false;
-
   users.users.kon = {
     isNormalUser = true;
     extraGroups = [ "wheel" "video" "docker" "input" ];
-    password = "kon";
     # passwordFile = age.secrets.kon.path;
     openssh.authorizedKeys.keys = keys.kon;
   };

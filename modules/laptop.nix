@@ -18,19 +18,17 @@
     };
   };
 
+  services.upower.enable = true;
+
   powerManagement = {
-    powertop.enable = true;
     enable = true;
-    resumeCommands = ''
-      echo "Resumed"
-    '';
+    powertop.enable = true;
   };
 
   services.thermald = {
     enable = true;
     ignoreCpuidCheck = true; # --ignore-cpuid-check
   };
-  services.upower.enable = true;
 
   # Disable wakeups (interrupts, disturabnces) on first 4 cores
   # https://www.kernel.org/doc/html/latest/timers/no_hz.html
