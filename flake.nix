@@ -8,10 +8,6 @@
           url = "github:ryantm/agenix";
           inputs.nixpkgs.follows = "nixpkgs";
         };
-        # lanzaboote = {
-        #   url = "github:nix-community/lanzaboote/v0.3.0";
-        #   inputs.nixpkgs.follows = "nixpkgs";
-        # };
         rocs = {
             url = "github:kowale/rocs";
             inputs.nixpkgs.follows = "nixpkgs";
@@ -54,10 +50,6 @@
             '';
         };
       };
-
-        # checks.${system} = {
-          # eval-self = pkgs.writeText "eval-self" (builtins.deepSeq self "OK");
-        # };
 
         nixosConfigurations = {
 
