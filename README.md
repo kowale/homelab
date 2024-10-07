@@ -21,10 +21,11 @@ checkout a commit and run
 sw
 ```
 
-To build and run a QEMU VM for most hosts
-you may try this
+To build and run a QEMU VM of a host,
+including its graphical environment,
+you may try
 
 ```
-nix run .#tools.run-host-vm five
+nix run .#tools.run-host-vm <host>
 ```
 
