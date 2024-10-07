@@ -44,5 +44,8 @@
     pcl # point cloud utils
     (self.inputs.agenix.packages.${config.nixpkgs.system}.agenix)
     ikill # interactively kill processes
+    nix-tree
+    nix-diff
+    nix-inspect
   ];
 }
