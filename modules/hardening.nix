@@ -14,8 +14,8 @@
 
   security = {
     chromiumSuidSandbox.enable = true;
-    auditd.enable = true;
-    audit.enable = true;
+    auditd.enable = false;
+    audit.enable = false;
     audit.rules = [
       "-a exit,always -F arch=b64 -S execve"
     ];
@@ -37,9 +37,9 @@
   # `sudo freshclam` to update virus database
   # `curl https://secure.eicar.org/eicar.com.txt | clamscan` to test
   services.clamav = {
-    updater.enable = true;
+    updater.enable = false;
     daemon = {
-      enable = true;
+      enable = false;
       settings = {
         OnAccessMountPath = "/home/kon/other/downloads";
         OnAccessPrevention = false;
