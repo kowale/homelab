@@ -35,3 +35,13 @@ cat homelab.kdbx.tar | agenix -e homelab.kdbx.tar.age
 agenix -r
 ```
 
+If you commit a secret
+
+```
+nix shell nixpkgs#git-filter-repo
+git grep aaaa $(git rev-list --all)
+git filter-repo --replace-text <(echo 'aaaa==>bbbb')
+git grep aaaa $(git rev-list --all)
+git grep bbbb $(git rev-list --all)
+```
+
