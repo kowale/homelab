@@ -26,6 +26,6 @@ including its graphical environment,
 you may try
 
 ```
-nix run .#tools.run-host-vm <host>
+nix run .#run-host-vm <host>
 ```
 
