@@ -22,7 +22,6 @@
     ../../modules/harmonia.nix
     ../../modules/docker.nix
     ../../modules/options/user.nix
-    #./passthrough.nix
   ];
 
   user.name = "kon";
