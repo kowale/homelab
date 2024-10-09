@@ -30,11 +30,12 @@
     ignoreCpuidCheck = true; # --ignore-cpuid-check
   };
 
+  # TODO: seems to cause freeze sometimes, to be investigated
   # Disable wakeups (interrupts, disturabnces) on first 4 cores
   # https://www.kernel.org/doc/html/latest/timers/no_hz.html
-  boot.kernelParams = [
-    "nohz_full=1,2,3,4"
-    "isolcpus=1,2,3,4"
-  ];
+  # boot.kernelParams = [
+  #   "nohz_full=1,2,3,4"
+  #   "isolcpus=1,2,3,4"
+  # ];
 
 }
