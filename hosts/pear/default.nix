@@ -79,8 +79,7 @@
   };
 
   boot = {
-    # TODO: switch to latest when nvidia catches up
-    kernelPackages = pkgs.linuxPackages_6_9;
+    kernelPackages = pkgs.linuxPackages_latest;
     extraModulePackages = [ config.boot.kernelPackages.nvidia_x11 ];
     extraModprobeConfig = "options nvidia-drm modeset=1";
     initrd.kernelModules = [
