@@ -1,5 +1,11 @@
 # Maintenance
 
+To update a flake input
+
+```
+nix flake lock --update-input nixpkgs
+```
+
 To onboard a new machine
 
 ```
