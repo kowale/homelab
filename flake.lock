@@ -124,11 +124,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1717862031,
-        "narHash": "sha256-Ei5nNyEAFf3qDDWBRXLM1C9cBrUpe8drrOemMuXQBUA=",
+        "lastModified": 1728853275,
+        "narHash": "sha256-ffKuPHgo8TcJTXUBTYMkVaH/ZT/8iSV7FNv7urHdyp0=",
         "owner": "kowale",
         "repo": "rocs",
-        "rev": "a13139cc86dd76a5a3ec2b891ea91b2b7843677e",
+        "rev": "8c32dc46c9bd9a10d51969d327624e89f9051e46",
         "type": "github"
       },
       "original": {
