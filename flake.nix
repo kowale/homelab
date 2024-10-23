@@ -1,5 +1,5 @@
 {
-    description = "Konstanty's homelab";
+    description = "Computers under my care";
 
     inputs = {
         nixpkgs.url = "github:nixos/nixpkgs/nixos-24.05";
@@ -40,6 +40,7 @@
           };
 
           nvim = pkgs.callPackage ./pkgs/nvim {};
+
           run-host-vm = pkgs.writeScriptBin "run-host-vm" ''
             set -eou pipefail
             nix build .#nixosConfigurations."$1".config.system.build.vm -vv -L
@@ -59,24 +60,16 @@
             specialArgs = self;
           };
 
-          five = nixpkgs.lib.nixosSystem {
+          six = nixpkgs.lib.nixosSystem {
             system = "x86_64-linux";
             modules = with inputs; [
-                hardware.nixosModules.lenovo-thinkpad-t14
+                #hardware.nixosModules.lenovo-thinkpad-t14
                 agenix.nixosModules.default
-                ./hosts/five
+                ./hosts/six
             ];
             specialArgs = self;
           };
 
-          pear = nixpkgs.lib.nixosSystem {
-            system = "x86_64-linux";
-            modules = with inputs; [
-                agenix.nixosModules.default
-                ./hosts/pear
-            ];
-            specialArgs = self;
-          };
         };
 
         darwinConfigurations = {

@@ -12,6 +12,10 @@
     "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIM+4zV6gBXOqft41DbBvnr7GiHvMBlgFww/lj95L0K0V root@five"
   ];
 
+  six = [
+    "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIKXlti8ZjvFzh8AMNPp7Zl6f/YMjlNOwbIjMYTX3EOOM root@six"
+  ];
+
   pear = [
     "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIKPZvfLC4lWyI3hNSn2GHk6X3bX0tVbEr23rcoYRsd27 root@pear"
   ];

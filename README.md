@@ -1,12 +1,8 @@
 # Homelab
 
-Infra, dotfiles, configs, disks, networks, secrets.
-Monorepo to configure what can be configured.
-
-## Hardware
-
-- [five](hosts/five)
 - [twelve](hosts/twelve)
+- [five](hosts/five)
+- [six](hosts/six)
 - [pear](hosts/pear)
 - [moth](hosts/moth)
 - [berry-N-M](hosts/berry)

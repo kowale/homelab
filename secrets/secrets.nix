@@ -1,8 +1,8 @@
 let
 
   keys = import ./keys.nix;
-  inherit (keys) kon twelve five pear;
-  everyone = kon ++ twelve ++ five ++ pear;
+  inherit (keys) kon pear twelve five six;
+  everyone = kon ++ pear ++ twelve ++ five ++ six;
 
 in
 

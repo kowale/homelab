@@ -140,11 +140,11 @@
 
   # To eliminate screen tearing on Intel laptops
   # Said to reduce performance, but I did not notice
-  services.xserver.videoDrivers = [ "intel" ];
-  services.xserver.deviceSection = ''
-    Option "DRI" "2"
-    Option "TearFree" "true"
-    '';
+  #services.xserver.videoDrivers = [ "intel" ];
+  #services.xserver.deviceSection = ''
+  #  Option "DRI" "2"
+  #  Option "TearFree" "true"
+  #  '';
 
   # services.greenclip.enable = true;
 
@@ -276,6 +276,8 @@
         import XMonad.Hooks.WorkspaceHistory
         import qualified XMonad.StackSet as W
         import XMonad.Util.SpawnOnce
+        import XMonad.Actions.DynamicWorkspaces
+        import XMonad.Actions.CopyWindow(copy)
 
         configuration = def
           { terminal = "alacritty --config-file /etc/alacritty.toml"
@@ -294,6 +296,7 @@
           , ("M-n", spawn "notify-send hi")
           , ("M-m", windowMenu)
           , ("M-g", goToSelected def)
+          , ("M-v", selectWorkspace def)
           , ("<Print>", spawn "flameshot gui")
           , ("<XF86MonBrightnessUp>", spawn "light -A 10")
           , ("<XF86MonBrightnessDown>", spawn "light -U 10")
