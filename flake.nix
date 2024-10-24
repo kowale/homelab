@@ -63,7 +63,7 @@
           six = nixpkgs.lib.nixosSystem {
             system = "x86_64-linux";
             modules = with inputs; [
-                #hardware.nixosModules.lenovo-thinkpad-t14
+                hardware.nixosModules.lenovo-thinkpad-t14-amd-gen5
                 agenix.nixosModules.default
                 ./hosts/six
             ];

@@ -24,12 +24,12 @@
     ../../modules/bluetooth.nix
     #../../modules/hardening.nix
     ../../modules/laptop.nix
-    ../../modules/tailscale.nix
+    # ../../modules/tailscale.nix
     ../../modules/cursor.nix
     ../../modules/ssd.nix
     ../../modules/cli.nix
     ../../modules/gui.nix
-    ../../modules/monitoring.nix
+    # ../../modules/monitoring.nix
     ../../modules/restic.nix
     ../../modules/options/user.nix
   ];
