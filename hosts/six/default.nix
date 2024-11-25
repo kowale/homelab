@@ -29,6 +29,7 @@
     ../../modules/ssd.nix
     ../../modules/cli.nix
     ../../modules/gui.nix
+    ../../modules/nats.nix
     # ../../modules/monitoring.nix
     ../../modules/restic.nix
     ../../modules/options/user.nix
