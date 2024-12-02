@@ -42,6 +42,10 @@
   boot.kernelPackages = pkgs.linuxPackages_latest;
   boot.initrd.luks.devices."luks-697269ec-96f1-4f81-9a51-65cc2e6b8f08".device = "/dev/disk/by-uuid/697269ec-96f1-4f81-9a51-65cc2e6b8f08";
 
+  boot.kernelParams = [
+    "acpi.ec_no_wakeup=1" # https://bbs.archlinux.org/viewtopic.php?id=298895
+  ];
+
   user.name = "kon";
   time.timeZone = "Europe/London";
 
@@ -64,5 +68,7 @@
 
   nixpkgs.config.allowUnfree = true;
   system.stateVersion = "24.05";
+
+  services.fwupd.enable = true;
 
 }
