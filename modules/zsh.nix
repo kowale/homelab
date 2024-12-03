@@ -26,6 +26,8 @@ in {
   environment.shellAliases = {
       ll = "ls -lah";
       v = "nvim";
+      s = "systemctl";
+      j = "journalctl";
       p = "python -q";
       t = "tmux new -A -s $1";
       cat = "bat --plain -P";
@@ -90,7 +92,6 @@ in {
         theme = "fishy";
         plugins = [
           "timer"
-          "zoxide"
         ];
         customPkgs = with pkgs; [
           nix-zsh-completions
