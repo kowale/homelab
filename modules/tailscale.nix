@@ -1,21 +1,35 @@
+{ config, ... }:
+
 {
   networking = {
-    useNetworkd = true;
     firewall = {
       checkReversePath = "loose";
       trustedInterfaces = [ "tailscale0" ];
     };
   };
 
-  # sudo tailscale up
-  # tailscale status
-  services.tailscale.enable = true;
+  age.secrets."headscale/authkey".file = ../secrets/headscale/authkey.age;
 
-  services.resolved = {
+  services.tailscale = {
     enable = true;
-    dnssec = "false";
+    openFirewall = true;
+    interfaceName = "tailscale0";
+    authKeyFile = config.age.secrets."headscale/authkey".path;
+    extraUpFlags = [
+      "--login-server=https://hs.koszyki.zip"
+      "--operator=konstanty"
+
+    ];
   };
 
-  #systemd.services.tailscaled.after = [ "network-online.target" "systemd-resolved.service" ];
+  # services.resolved = {
+  #   enable = true;
+  #   dnssec = "false";
+  # };
+
+  # systemd.services.tailscaled.after = [
+  #   "network-online.target"
+  #   "systemd-resolved.service"
+  # ];
 }
 

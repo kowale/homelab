@@ -2,13 +2,24 @@
 
 {
 
+  # networking.dhcpcd.enable = false;
+  # systemd.network.enable = true;
+
+  # systemd.network.networks."10-lan" = {
+  #   matchConfig.Name = "lan";
+  #   networkConfig = {
+  #     DHCP = "ipv4";
+  #     # LinkLocalAddressing = "no";
+  #   };
+  # };
+
+  # systemd.services."systemd-networkd".environment.SYSTEMD_LOG_LEVEL = "debug";
+
   age.secrets.wireless = {
     file = ../secrets/wireless.age;
     owner = "kon";
     group = "wheel";
   };
-
-  environment.systemPackages = [ pkgs.wpa_supplicant_gui ];
 
   networking.wireless = {
     enable = true;
@@ -34,4 +45,7 @@
       '';
     };
   };
+
+  environment.systemPackages = [ pkgs.wpa_supplicant_gui ];
+
 }

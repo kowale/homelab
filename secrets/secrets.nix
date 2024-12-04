@@ -16,4 +16,5 @@ in
     "restic/env.age".publicKeys = everyone;
     "restic/repo.age".publicKeys = everyone;
     "restic/password.age".publicKeys = everyone;
+    "headscale/authkey.age".publicKeys = everyone;
   }
