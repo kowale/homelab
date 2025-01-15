@@ -1,19 +1,9 @@
 { config, pkgs, ... }:
 
-  # https://github.com/ohmyzsh/ohmyzsh/wiki/Themes
-  # https://github.com/ohmyzsh/ohmyzsh/wiki/Plugins
-
 let
 
-  # Digestible local IP information
   ip-info = pkgs.writeScriptBin "ip-info" ''
-    ip -o addr show | awk '{print $2 " " $4}'
-  '';
-
-   # roc = run (command) on change (in files below)
-   roc = pkgs.writeScriptBin "roc" ''
-    # roc "md nix" "nix build .#docs -vv -L"
-    fd -e $1 | entr -c $2
+    ip -j a | jq '.[].addr_info.[].local' -r
   '';
 
 in {
@@ -39,9 +29,7 @@ in {
     };
 
   environment.systemPackages = with pkgs; [
-    zoxide
     ip-info
-    roc
   ];
 
   users.defaultUserShell = pkgs.zsh;
@@ -74,31 +62,21 @@ in {
           nvim -c "normal G" -- $file
       }
 
-      f() {
-          file=$(
-              fzf -m \
-              --bind ctrl-a:select-all,ctrl-d:deselect-all,ctrl-t:toggle-all \
-              --print0 \
-              --preview 'bat --theme Dracula --color=always {}'
-          ) || return
-          nvim -- $file
-      }
     '';
 
     ohMyZsh = {
         enable = true;
         theme = "fishy";
-        plugins = [
-          "timer"
-          "zoxide"
-        ];
-        customPkgs = with pkgs; [
-          nix-zsh-completions
-          zsh-nix-shell
-          zsh-git-prompt
-          zsh-fast-syntax-highlighting
-          zsh-system-clipboard
-        ];
+        # plugins = [
+        #   "timer"
+        # ];
+        # customPkgs = with pkgs; [
+        #   nix-zsh-completions
+        #   zsh-nix-shell
+        #   zsh-git-prompt
+        #   zsh-fast-syntax-highlighting
+        #   zsh-system-clipboard
+        # ];
     };
   };
 }

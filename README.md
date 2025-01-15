@@ -1,9 +1,9 @@
 # Homelab
 
-- [twelve](hosts/twelve)
-- [five](hosts/five)
 - [six](hosts/six)
 - [pear](hosts/pear)
+- [twelve](hosts/twelve)
+- [five](hosts/five)
 - [moth](hosts/moth)
 - [berry-N-M](hosts/berry)
 

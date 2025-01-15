@@ -63,6 +63,12 @@
       # about:config
       # about:preferences
       Preferences = {
+
+
+        "accessibility.typeaheadfind.enablesound" = false;
+        "browser.tabs.crashReporting.sendReport" = false;
+        "browser.download.useDownloadDir" = false;
+
         "browser.gesture.swipe.left" = "";
         "browser.gesture.swipe.right" = "";
         "browser.startup.homepage" = "about:newtab";

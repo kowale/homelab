@@ -134,7 +134,7 @@
 
   services.physlock = {
     enable = true;
-    muteKernelMessages = true;
+    muteKernelMessages = false;
     allowAnyUser = true;
   };
 
@@ -234,7 +234,7 @@
 
         xmobarConfig = pkgs.writeScript "xmobarrc"
         ''
-        Config { template = "%XMonadLog% }{ %locks% %diskio% %disku% %memory% %dynnetwork% %brightness% %battery% %date%"
+        Config { template = "%XMonadLog% }{ %locks% %diskio% %disku% %memory% %cpu% %dynnetwork% %brightness% %battery% %date%"
         , font = "Terminus 10px"
         , bgColor = "black"
         , fgColor = "white"
@@ -246,6 +246,7 @@
         , Run DiskIO [("/", "<read><fc=gray>/</fc><write>")] [ "-L", "100", "-H", "3000", "-l", "grey", "-h", "yellow", "-n", "orange" ] 10
         , Run DiskU [("/", "<free>")] [ "-L", "400", "-l", "red" ] 10
         , Run Memory ["-t", "<usedratio>%", "-L", "20", "-H", "90", "-h", "red", "-n", "orange"] 10
+        , Run Cpu ["-t", "<total>%", "-L", "20", "-H", "90", "-h", "red", "-n", "orange"] 10
         , Run DynNetwork ["-t", "<dev> <rx><fc=gray>/</fc><tx>", "-L", "500", "-H", "5000", "-l", "gray", "-h", "yellow", "-n", "orange"] 10
         , Run Com "light" [ "-r" ] "brightness" 50
         , Run Battery ["-t", "<left>%", "-L", "20", "-H", "80", "-l", "red", "-h", "green", "-n", "pink"] 10

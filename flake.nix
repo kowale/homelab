@@ -2,7 +2,7 @@
     description = "Computers under my care";
 
     inputs = {
-        nixpkgs.url = "github:nixos/nixpkgs/nixos-24.05";
+        nixpkgs.url = "github:nixos/nixpkgs/nixos-24.11";
         hardware.url = "github:nixos/nixos-hardware";
         agenix = {
           url = "github:ryantm/agenix";
@@ -72,14 +72,5 @@
 
         };
 
-        darwinConfigurations = {
-          moth = inputs.nix-darwin.lib.darwinSystem {
-            modules = with inputs; [
-	      agenix.darwinModules.default
-	      ./hosts/moth
-	    ];
-            specialArgs = self;
-          };
-        };
     };
 }
