@@ -1,4 +1,4 @@
-{ pkgs, lib, ... }:
+{ config, pkgs, lib, ... }:
 
 # https://github.com/ksevelyar/idempotent-desktop
 # https://github.com/NeshHari/XMonad
@@ -134,8 +134,9 @@
 
   services.physlock = {
     enable = true;
-    muteKernelMessages = false;
+    muteKernelMessages = true;
     allowAnyUser = true;
+    lockMessage = "${config.networking.hostName}";
   };
 
   # To eliminate screen tearing on Intel laptops
