@@ -22,7 +22,7 @@
               "https://cache.nixos.org" # 40
               "https://nix-community.cachix.org" # 41
               "https://cuda-maintainers.cachix.org" # 41
-              "https://cache.garnix.io?priority=30" # 50 -> 30
+              "https://cache.garnix.io" # 50
             ];
             trusted-public-keys = [
               "cache.pear.local:NdBzAs/wPQnM5PYbpwtyA32z+eDpQ+czQKO+IwvTbkQ="
