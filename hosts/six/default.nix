@@ -70,4 +70,9 @@
 
   services.fwupd.enable = true;
 
+  programs.direnv = {
+    enable = true;
+    loadInNixShell = true;
+  };
+
 }
