@@ -75,4 +75,10 @@
     loadInNixShell = true;
   };
 
+  programs.weylus = {
+    enable = true;
+    users = [ "kon" "nix" ];
+    openFirewall = true;
+  };
+
 }

@@ -280,6 +280,7 @@
         import XMonad.Util.SpawnOnce
         import XMonad.Actions.DynamicWorkspaces
         import XMonad.Actions.CopyWindow(copy)
+        import XMonad.Hooks.EwmhDesktops
 
         configuration = def
           { terminal = "alacritty --config-file /etc/alacritty.toml"
@@ -346,6 +347,8 @@
         strutsKey XConfig { modMask = m } = (m, xK_b)
 
         main = xmonad
+          . ewmhFullscreen
+          . ewmh
           $ withEasySB (statusBarProp "xmobar ${xmobarConfig}" (pure pretty)) strutsKey
           $ configuration
         '';
