@@ -130,7 +130,6 @@
     openFirewall = true;
   };
 
-  programs.kdeconnect.enable = true;
   services.fwupd.enable = true;
   environment.enableDebugInfo = true;
 
