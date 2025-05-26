@@ -47,5 +47,10 @@
     nix-tree
     nix-diff
     nix-inspect
+    pikchr
+    elixir
+    unzip
+    jujutsu
+    jjui
   ];
 }

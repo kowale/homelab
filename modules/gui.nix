@@ -32,5 +32,7 @@
     pavucontrol
     ffmpeg-full
     sqlitebrowser
+    xannotate
+    libreoffice
   ];
 }
