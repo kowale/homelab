@@ -39,6 +39,8 @@
       "ikon".pskRaw = "ext:ikon";
       "SKYKDEKR".pskRaw = "ext:SKYKDEKR";
       "VOO-GRBLGF7".pskRaw = "ext:VOO_GRBLGF7";
+      "Marteau Happy Activities".pskRaw = "ext:MHA";
+      "Selestine Villa".pskRaw = "ext:SV";
     };
   };
 }
