@@ -48,9 +48,19 @@
     nix-diff
     nix-inspect
     pikchr
+    gleam
     elixir
+    erlang
+    rebar3
     unzip
     jujutsu
     jjui
+    mergiraf
+    cloak
+    aider-chat
+    tectonic
+    nodejs
+    gcc
+    cargo
   ];
 }
