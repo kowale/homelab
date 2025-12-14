@@ -37,7 +37,7 @@
     dejavu_fonts
     terminus_font
     inter
-    noto-fonts-emoji # emoji
+    noto-fonts-color-emoji
     ipafont # Japanese
     uiua386
   ];

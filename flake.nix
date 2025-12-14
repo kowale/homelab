@@ -2,7 +2,7 @@
     description = "Computers under my care";
 
     inputs = {
-        nixpkgs.url = "github:nixos/nixpkgs/nixos-25.05";
+        nixpkgs.url = "github:nixos/nixpkgs/nixos-25.11";
         hardware.url = "github:nixos/nixos-hardware";
         agenix = {
           url = "github:ryantm/agenix";
