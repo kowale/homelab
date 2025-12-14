@@ -5,8 +5,9 @@
   # TODO: move to nixosModules
   imports = [
     ./hardware-configuration.nix
-    ../../modules/xmonad.nix
-    ../../modules/picom.nix
+    # ../../modules/xmonad.nix
+    ../../modules/niri
+    # ../../modules/picom.nix
     ../../modules/nix.nix
     ../../modules/ssh.nix
     ../../modules/fonts.nix
@@ -44,6 +45,9 @@
 
   boot.kernelParams = [
     "acpi.ec_no_wakeup=1" # https://bbs.archlinux.org/viewtopic.php?id=298895
+    "amdgpu.ppfeaturemask=0xf7fff" # https://wiki.archlinux.org/title/AMDGPU#Frozen_or_unresponsive_display_(flip_done_timed_out)
+    "amdgpu.dcdebugmask=0x10" # https://gitlab.freedesktop.org/drm/amd/-/issues/3067#note_3221687
+    "amdgpu.sg_display=0" # https://community.frame.work/t/resolved-fw13-amd-7840u-arch-graphics-output-corruption/44091
   ];
 
   user.name = "kon";

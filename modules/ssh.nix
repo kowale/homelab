@@ -12,6 +12,6 @@
 
     services.sshd.enable = true;
 
-    programs.ssh.startAgent = true;
+    # programs.ssh.startAgent = true;
   }
 

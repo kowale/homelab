@@ -1,0 +1,73 @@
+[colors.primary]
+background = "0x000000"
+foreground = "0xffffff"
+
+[colors]
+draw_bold_text_with_bright_colors = false
+
+[colors.cursor]
+cursor = "#F2F2F2"
+text = "#0D0D0D"
+
+[scrolling]
+history = 100000
+multiplier = 3
+
+[cursor]
+style = "Block"
+unfocused_hollow = true
+
+
+
+[font]
+size = 8.0
+
+[[keyboard.bindings]]
+action = "SpawnNewInstance"
+key = "T"
+mods = "Control|Shift"
+
+[[keyboard.bindings]]
+action = "IncreaseFontSize"
+key = "Plus"
+mods = "Control|Shift"
+
+[[keyboard.bindings]]
+action = "IncreaseFontSize"
+key = "Plus"
+mods = "Control|Shift"
+
+[[keyboard.bindings]]
+action = "IncreaseFontSize"
+key = "Plus"
+mods = "Control|Shift"
+
+[[keyboard.bindings]]
+action = "IncreaseFontSize"
+key = "Plus"
+mods = "Control|Shift"
+
+[[keyboard.bindings]]
+action = "DecreaseFontSize"
+key = "Minus"
+mods = "Control"
+
+[[keyboard.bindings]]
+action = "DecreaseFontSize"
+key = "Minus"
+mods = "Control"
+
+[[keyboard.bindings]]
+action = "DecreaseFontSize"
+key = "Minus"
+mods = "Control"
+
+[[keyboard.bindings]]
+action = "DecreaseFontSize"
+key = "Minus"
+mods = "Control"
+
+[window]
+decorations = "None"
+resize_increments = true
+
