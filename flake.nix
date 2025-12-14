@@ -33,12 +33,6 @@
 
       packages.${system} = {
 
-          docs = inputs.rocs.lib.buildSite {
-            inherit pkgs;
-            root = self.outPath;
-            emoji = "⚗️";
-          };
-
           nvim = pkgs.callPackage ./pkgs/nvim {};
 
           run-host-vm = pkgs.writeScriptBin "run-host-vm" ''
