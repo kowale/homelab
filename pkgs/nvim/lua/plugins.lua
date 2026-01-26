@@ -158,26 +158,6 @@ vim.keymap.set("n", "tt", function()
     require("toggleterm").send_lines_to_terminal("single_line", true, { args = vim.v.count })
 end)
 
--- Trouble
-require("trouble").setup {
-    mode = "document_diagnostics",
-    icons = false,
-    fold_open = "v",
-    fold_closed = ">",
-    indent_lines = false,
-    padding = false,
-    group = false,
-    use_diagnostic_signs = false,
-    signs = {
-        error = "E",
-        warning = "W",
-        hint = "H",
-        information = "I",
-        other = "?",
-    },
-}
-vim.keymap.set("n", "<s-t>", "<cmd>TroubleToggle<cr>")
-
 -- Leap
 -- require("leap").add_default_mappings()
 require("leap").setup {
@@ -189,105 +169,41 @@ vim.keymap.set("n", "s", function ()
 end)
 
 -- LSP configs
--- <https://github.com/neovim/nvim-lspconfig/blob/master/doc/server_configurations.md>
+require("lspconfig")
 
--- Python
-
-require'lspconfig'.ruff.setup {}
--- require'lspconfig'.pyright.setup {
-    -- analysis = {
-    --     autoSearchPaths = true,
-    --     useLibraryCodeForTypes = true,
-    -- }
--- }
-
--- Nix
--- require'lspconfig'.statix.setup {}
-require'lspconfig'.nixd.setup {}
-require'lspconfig'.nil_ls.setup {}
-require'lspconfig'.statix.setup {}
-
--- Elixir
--- require'lspconfig'.elixirls.setup {
---     cmd = { "elixir-ls" }
--- }
-
--- Lua
--- require'lspconfig'.lua_ls.setup {}
-
--- JS
-require'lspconfig'.biome.setup{}
-
--- Uiua
-require'lspconfig'.uiua.setup{}
-
--- Gleam
-require'lspconfig'.gleam.setup{}
-
--- Writing
--- TODO: try textlsp, vale-ls, prosemd-lsp
--- marksman doesn't handle ref links
--- ltex is way too heavy for me
-
--- Completions
-local cmp = require'cmp'
-local select_opts = { behavior = cmp.SelectBehavior.Select }
-cmp.setup {
-  sources = {
-    { name = 'nvim_lsp', keyword_length = 3 },
-    { name = 'buffer', keyword_length = 3 },
-    { name = 'path', keyword_length = 2 },
-    { name = 'git', keyword_length = 3 },
-    -- { name = 'rg', keyword_length = 3 },
-    -- { name = 'calc', keyword_length = 3 },
-  },
-
-  formatting = {
-    fields = {'menu', 'abbr', 'kind'},
-    format = function(entry, item)
-      item.menu = ({
-        nvim_lsp = 'L',
-        buffer = 'B',
-        path = 'P',
-        git = 'G',
-        -- rg = 'R',
-        -- calc = 'C',
-      })[entry.source.name]
-      return item
-    end
-  },
-
-  mapping = {
-    ['<Up>'] = cmp.mapping.select_prev_item(select_opts),
-    ['<Down>'] = cmp.mapping.select_next_item(select_opts),
-    ['<CR>'] = cmp.mapping.confirm({
-        select = false,
-        --select = true,
-        behavior = cmp.ConfirmBehavior.Replace
-    }),
-
-    ['<Tab>'] = cmp.mapping(function(fallback)
-      local col = vim.fn.col('.') - 1
-
-      if cmp.visible() then
-        cmp.select_next_item(select_opts)
-      elseif col == 0 or vim.fn.getline('.'):sub(col, col):match('%s') then
-        fallback()
-      else
-        cmp.complete()
-      end
-    end, {'i', 's'}),
-
-    ['<S-Tab>'] = cmp.mapping(function(fallback)
-      if cmp.visible() then
-        cmp.select_prev_item(select_opts)
-      else
-        fallback()
-      end
-    end, {'i', 's'}),
-  },
-
+local lsps = {
+    { "ruff" },
+    -- { "nil_ls" },
+    { "statix" },
+    { "nixd" },
+    { "rust_analyzer" },
+    { "cssls" },
+    { "lua_ls" },
+    {
+        "clangd",
+        {
+            init_options = {
+                fallbackFlags = { '--std=c23' }
+            },
+        }
+    },
+    {
+        "sqleibniz",
+        {
+            cmd = { '/usr/bin/sqleibniz', '--lsp' },
+            filetypes = { "sql" },
+            root_markers = { "leibniz.lua" }
+        }
+    },
 }
+
+for _, lsp in pairs(lsps) do
+    local name, config = lsp[1], lsp[2]
+    vim.lsp.enable(name)
+    if config then
+        vim.lsp.config(name, config)
+    end
+end
 
 -- Remove "virtual text" and make floating info smaller
 vim.diagnostic.config({

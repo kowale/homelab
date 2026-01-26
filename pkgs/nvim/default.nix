@@ -57,7 +57,7 @@ let
       '';
 
       plugins = with vimPlugins; [
-        nvim-lspconfig
+        # nvim-lspconfig
         nvim-treesitter.withAllGrammars
         nvim-treesitter-context
         nvim-treesitter-refactor
@@ -95,6 +95,7 @@ let
         vim-repeat
 
         neogit
+        blink-cmp
 
       ];
     };
