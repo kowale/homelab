@@ -16,6 +16,11 @@
   uiua,
   gleam,
   biome,
+  black,
+  stylua,
+  nerd-fonts,
+  clang-tools,
+  vscode-css-languageserver
 }:
 
 let
@@ -34,6 +39,12 @@ let
       uiua
       gleam
       biome
+      black
+      stylua
+      nerd-fonts.fira-code
+      nerd-fonts.droid-sans-mono
+      clang-tools
+      vscode-css-languageserver
     ];
 
     nvimConfig = neovimUtils.makeNeovimConfig {
@@ -96,6 +107,7 @@ let
 
         neogit
         blink-cmp
+        conform-nvim
 
       ];
     };
