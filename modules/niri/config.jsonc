@@ -1,16 +1,11 @@
 {
-    "height": 22,
+    "height": 16,
     "spacing": 0,
     "layer": "top",
-
     "modules-left": [
         "niri/workspaces",
-        // "niri/window",
-    ],
-    "modules-center": [
     ],
     "modules-right": [
-        "custom/hello",
         "idle_inhibitor",
         "wireplumber#sink",
         "group/session",
@@ -26,12 +21,5 @@
         "clock",
         "tray",
     ],
-
-    "custom/hello": {
-        "format": "{}",
-        "on-click": "echo hi",
-        "tooltip": true,
-        "tooltip-format": "hello",
-    },
 }
 

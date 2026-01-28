@@ -15,6 +15,7 @@ input {
 
 layout {
     gaps 0
+    background-color "#000000"
     center-focused-column "never"
     preset-column-widths {
         proportion 0.33333
@@ -45,6 +46,13 @@ layout {
     }
     struts {
     }
+
+    insert-hint {
+        on
+        color "#ffc87f80"
+        // gradient from="#ffbb6680" to="#ffc88080" angle=45 relative-to="workspace-view"
+    }
+
 }
 
 window-rule {
@@ -69,6 +77,7 @@ animations {
 
 window-rule {
     geometry-corner-radius 0
+    clip-to-geometry true
 }
 
 window-rule {
@@ -85,11 +94,6 @@ output "eDP-1" {
 output "HDMI-A-1" {
     scale 1.0
     variable-refresh-rate
-}
-
-/-window-rule {
-    geometry-corner-radius 4
-    clip-to-geometry true
 }
 
 binds {
