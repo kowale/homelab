@@ -61,78 +61,78 @@ require("nvim-treesitter.configs").setup({
 	},
 })
 
--- Treesitter textsubjects
-require("nvim-treesitter.configs").setup({
-	textsubjects = {
-		enable = true,
-		prev_selection = ",", -- (Optional) keymap to select the previous selection
-		keymaps = {
-			["."] = "textsubjects-smart",
-			[";"] = "textsubjects-container-outer",
-			["i;"] = "textsubjects-container-inner",
-		},
-	},
-})
+-- -- Treesitter textsubjects
+-- require("nvim-treesitter.configs").setup({
+-- 	textsubjects = {
+-- 		enable = true,
+-- 		prev_selection = ",", -- (Optional) keymap to select the previous selection
+-- 		keymaps = {
+-- 			["."] = "textsubjects-smart",
+-- 			[";"] = "textsubjects-container-outer",
+-- 			["i;"] = "textsubjects-container-inner",
+-- 		},
+-- 	},
+-- })
 
--- Treesitter textobjects
-require("nvim-treesitter.configs").setup({
-	textobjects = {
-		select = {
-			enable = true,
-			lookahead = true,
-			keymaps = {
-				-- textobjects.scm
-				["af"] = "@function.outer",
-				["if"] = "@function.inner",
-				["ac"] = "@class.outer",
-				["ic"] = { query = "@class.inner", desc = "Select inner part of a class region" },
-				["as"] = { query = "@scope", query_group = "locals", desc = "Select language scope" },
-			},
-			selection_modes = {
-				["@parameter.outer"] = "v", -- charwise
-				["@function.outer"] = "V", -- linewise
-				["@class.outer"] = "<c-v>", -- blockwise
-			},
-			include_surrounding_whitespace = false,
-		},
-	},
-})
+-- -- Treesitter textobjects
+-- require("nvim-treesitter.configs").setup({
+-- 	textobjects = {
+-- 		select = {
+-- 			enable = true,
+-- 			lookahead = true,
+-- 			keymaps = {
+-- 				-- textobjects.scm
+-- 				["af"] = "@function.outer",
+-- 				["if"] = "@function.inner",
+-- 				["ac"] = "@class.outer",
+-- 				["ic"] = { query = "@class.inner", desc = "Select inner part of a class region" },
+-- 				["as"] = { query = "@scope", query_group = "locals", desc = "Select language scope" },
+-- 			},
+-- 			selection_modes = {
+-- 				["@parameter.outer"] = "v", -- charwise
+-- 				["@function.outer"] = "V", -- linewise
+-- 				["@class.outer"] = "<c-v>", -- blockwise
+-- 			},
+-- 			include_surrounding_whitespace = false,
+-- 		},
+-- 	},
+-- })
 
--- Treesitter context
-require("treesitter-context").setup({
-	enable = true,
-	max_lines = 5,
-	min_window_height = 0,
-	line_numbers = true,
-	multiline_threshold = 5,
-	trim_scope = "outer",
-	mode = "cursor",
-	separator = nil,
-	zindex = 20,
-	on_attach = nil,
-})
+-- -- Treesitter context
+-- require("treesitter-context").setup({
+-- 	enable = true,
+-- 	max_lines = 5,
+-- 	min_window_height = 0,
+-- 	line_numbers = true,
+-- 	multiline_threshold = 5,
+-- 	trim_scope = "outer",
+-- 	mode = "cursor",
+-- 	separator = nil,
+-- 	zindex = 20,
+-- 	on_attach = nil,
+-- })
 
--- Treesitter refactor
-require("nvim-treesitter.configs").setup({
-	refactor = {
-		navigation = {
-			enable = true,
-			keymaps = {
-				goto_definition = "gnd",
-				list_definitions = "gnD",
-				list_definitions_toc = "gO",
-				goto_next_usage = "<a-*>",
-				goto_previous_usage = "<a-#>",
-			},
-		},
-	},
-	highlight_current_scope = { enable = true },
-	highlight_definitions = {
-		enable = true,
-		-- Set to false if you have an `updatetime` of ~100.
-		clear_on_cursor_move = true,
-	},
-})
+-- -- Treesitter refactor
+-- require("nvim-treesitter.configs").setup({
+-- 	refactor = {
+-- 		navigation = {
+-- 			enable = true,
+-- 			keymaps = {
+-- 				goto_definition = "gnd",
+-- 				list_definitions = "gnD",
+-- 				list_definitions_toc = "gO",
+-- 				goto_next_usage = "<a-*>",
+-- 				goto_previous_usage = "<a-#>",
+-- 			},
+-- 		},
+-- 	},
+-- 	highlight_current_scope = { enable = true },
+-- 	highlight_definitions = {
+-- 		enable = true,
+-- 		-- Set to false if you have an `updatetime` of ~100.
+-- 		clear_on_cursor_move = true,
+-- 	},
+-- })
 
 -- Git gutter
 require("gitsigns").setup({
@@ -268,13 +268,13 @@ require("goto-preview").setup({
 })
 
 -- Ollama
-require("ollama").setup({
-	model = "llama3.1",
-	url = "http://ollama.pear.local",
-})
-vim.keymap.set({ "v", "n" }, "op", ":<c-u>lua require('ollama').prompt()<cr>")
-vim.keymap.set({ "v", "n" }, "og", ":<c-u>lua require('ollama').prompt('Generate_Code')<cr>")
+-- require("ollama").setup({
+-- 	model = "llama3.1",
+-- 	url = "http://ollama.pear.local",
+-- })
+-- vim.keymap.set({ "v", "n" }, "op", ":<c-u>lua require('ollama').prompt()<cr>")
+-- vim.keymap.set({ "v", "n" }, "og", ":<c-u>lua require('ollama').prompt('Generate_Code')<cr>")
 
--- Neogit
-require("neogit").setup({})
-vim.keymap.set({ "n" }, "<c-n>", ":Neogit<cr>")
+-- -- Neogit
+-- require("neogit").setup({})
+-- vim.keymap.set({ "n" }, "<c-n>", ":Neogit<cr>")
