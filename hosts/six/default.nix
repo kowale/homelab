@@ -43,12 +43,12 @@
   boot.kernelPackages = pkgs.linuxPackages_latest;
   boot.initrd.luks.devices."luks-697269ec-96f1-4f81-9a51-65cc2e6b8f08".device = "/dev/disk/by-uuid/697269ec-96f1-4f81-9a51-65cc2e6b8f08";
 
-  boot.kernelParams = [
-    "acpi.ec_no_wakeup=1" # https://bbs.archlinux.org/viewtopic.php?id=298895
-    "amdgpu.ppfeaturemask=0xf7fff" # https://wiki.archlinux.org/title/AMDGPU#Frozen_or_unresponsive_display_(flip_done_timed_out)
-    "amdgpu.dcdebugmask=0x10" # https://gitlab.freedesktop.org/drm/amd/-/issues/3067#note_3221687
-    "amdgpu.sg_display=0" # https://community.frame.work/t/resolved-fw13-amd-7840u-arch-graphics-output-corruption/44091
-  ];
+  # boot.kernelParams = [
+  #   "acpi.ec_no_wakeup=1" # https://bbs.archlinux.org/viewtopic.php?id=298895
+  #   "amdgpu.ppfeaturemask=0xf7fff" # https://wiki.archlinux.org/title/AMDGPU#Frozen_or_unresponsive_display_(flip_done_timed_out)
+  #   "amdgpu.dcdebugmask=0x10" # https://gitlab.freedesktop.org/drm/amd/-/issues/3067#note_3221687
+  #   "amdgpu.sg_display=0" # https://community.frame.work/t/resolved-fw13-amd-7840u-arch-graphics-output-corruption/44091
+  # ];
 
   user.name = "kon";
   time.timeZone = "Europe/London";
@@ -85,4 +85,17 @@
     openFirewall = true;
   };
 
+  boot.initrd.systemd.enable = true;
+  security.protectKernelImage = false;
+
+  # https://blog.tiserbox.com/posts/2025-03-10-enable-hibernation-on-nix-os.html
+  powerManagement.enable = true;
+  swapDevices = [
+    {
+      device = "/var/lib/swapfile";
+      size = 32 * 1024;
+    }
+  ];
+  boot.resumeDevice = "/dev/disk/by-uuid/81935edd-08c9-4384-a873-12998a74d1ee";
+  boot.kernelParams = ["resume_offset=235247616"];
 }
